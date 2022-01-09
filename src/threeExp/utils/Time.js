@@ -1,26 +1,25 @@
 export default class Time {
-   constructor() {
-      // Setup
-      this.start = Date.now()
-      this.current = this.start
-      this.elapsed = 0
-      this.delta = 0
+  constructor() {
+    // Setup
+    this.start = Date.now();
+    this.current = this.start;
+    this.elapsed = 0;
+    this.delta = 0;
 
-      // Event
-      this.event = new CustomEvent('tick', {})
+    // Event
+    this.event = new CustomEvent("tick", {});
 
-      this.tick(this.current)
-   }
+    this.tick(this.current);
+  }
 
-   tick(currentTime) {
-      this.delta = (currentTime - this.current)
-      this.current = currentTime
-      this.elapsed = currentTime - this.start
-      // console.log(this.delta)
-      window.dispatchEvent(this.event)
+  tick(currentTime) {
+    this.delta = currentTime - this.current;
+    this.current = currentTime;
+    this.elapsed = currentTime - this.start;
+    window.dispatchEvent(this.event);
 
-      requestAnimationFrame((timestamp) => {
-         this.tick(timestamp)
-      })
-   }
+    requestAnimationFrame((timestamp) => {
+      this.tick(timestamp);
+    });
+  }
 }
