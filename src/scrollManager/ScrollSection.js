@@ -1,3 +1,10 @@
+/**
+ * Full screen scroll section with optional horizontal scroll screen children.
+ *
+ * @param {number} index The scroll index to be assigned to this section.
+ * @param {element} section The DOM element for the full screen scroll.
+ * @param {boolean} isXScroll Does the element have children to be scrolled through horizontally?
+ */
 export default class ScrollSection {
   constructor(index, section, isXScroll) {
     this.index = index;
@@ -13,11 +20,12 @@ export default class ScrollSection {
     }
   }
 
+  /**
+   * Sets the horizontal scroll order for the section children relative to the given
+   * index param.
+   * @param {number} index The next vertical index to be scrolled to.
+   */
   setXScrollOrderClasses(nextIndex) {
-    /**
-     * Adds the scroll class order for current section and adds currentDisplay class
-     * if any display element are found.
-     */
     const nextXScroll =
       nextIndex < this.maxIndex ? this.children[nextIndex + 1] : null;
     const prevXScroll = nextIndex > 0 ? this.children[nextIndex - 1] : null;
@@ -36,11 +44,11 @@ export default class ScrollSection {
     }
   }
 
+  /**
+   * Clears the scroll class order for current section and removes currentDisplay class
+   * if one is found.
+   */
   clearXScrollOrderClasses() {
-    /**
-     * Clears the scroll class order for current section and removes currentDisplay class
-     * if one is found.
-     */
     this.element.querySelector(".prevXScroll")?.classList.remove("prevXScroll");
     this.element
       .querySelector(".currentXScroll")
