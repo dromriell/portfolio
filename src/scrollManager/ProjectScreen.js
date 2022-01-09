@@ -1,3 +1,9 @@
+/**
+ * Renders and displays individual project section screen based on works data.
+ *
+ * @param {number} index The vertical scroll index for this section.
+ * @param {object} project The project data to be displayed.
+ */
 export default class ProjectScreen {
   constructor(index, project) {
     this.index = index;
@@ -20,10 +26,10 @@ export default class ProjectScreen {
     this.nodes.article.appendChild(this.nodes.text);
   }
 
+  /**
+   * Create project nodes
+   */
   setNodes() {
-    /**
-     * Create project nodes
-     */
     this.nodes = {
       article: document.createElement("article"),
       displayDiv: document.createElement("div"),
@@ -42,10 +48,10 @@ export default class ProjectScreen {
     }
   }
 
+  /**
+   * If type combo then create multiple elements and related img nodes and then append to projectDisplayDiv
+   */
   setComboNodes() {
-    /**
-     * If type combo then create multiple elements and related img nodes and then append to projectDisplayDiv
-     */
     const comboFragment = document.createDocumentFragment();
     for (const [index, comboType] of this.project.comboTypes.entries()) {
       const comboDiv = document.createElement("div");
@@ -63,10 +69,10 @@ export default class ProjectScreen {
     this.nodes.displayDiv.appendChild(comboFragment);
   }
 
+  /*
+   * Create class lists based on the current project
+   */
   setClasses() {
-    /*
-     * Create class lists based on the current project
-     */
     const projectArticleClasses =
       // Add conditional Display ordering class and Project layout class
       `projectContainer scrollX ${
