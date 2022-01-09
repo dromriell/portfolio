@@ -235,141 +235,11 @@ section {
 
 /*   #endregion   */
 
-/* Skills Screen */ /* #region */
-
-#skillsScreen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.isoField {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  height: 60%;
-  width: var(--isoFieldWidth);
-  transform: skewX(-30deg);
-  max-width: 50vw;
-}
-
-.isoTile {
-  position: relative;
-  display: block;
-  width: 30%;
-  aspect-ratio: 1.3;
-  background-color: var(--shadowDark);
-  border-radius: 10px;
-  box-shadow: 5px 5px 7px 0 var(--shadowLight);
-  margin: 0 0.5em;
-  transition: box-shadow ease-in-out 300ms, transform ease-in-out 300ms;
-  z-index: 5;
-}
-
-.isoTile::before {
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 100%;
-  top: -2.5px;
-  left: -2.5px;
-  /* margin-left: 10px; */
-  background-color: var(--grey);
-  /* box-shadow: 10px 1px 0 0 black; */
-  /* transform: skewX(30deg); */
-  border-radius: 10px;
-}
-
-.isoTile::after {
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 100%;
-  top: -5px;
-  left: -5px;
-  /* margin-left: 10px; */
-  background-image: inherit;
-  background-color: inherit;
-  background-size: inherit;
-  background-repeat: inherit;
-  background-position: inherit;
-  border-radius: 10px;
-  border-left: inherit;
-  /* box-shadow: 10px 1px 0 0 black; */
-  z-index: 4;
-}
-
-.jsTile {
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/c/ce/Unofficial_JavaScript_logo.svg");
-  background-color: yellow;
-  background-position: right bottom;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-.pyTile {
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/640px-Python-logo-notext.svg.png");
-  background-color: var(--black);
-  background-position: center;
-  background-size: 50%;
-  background-repeat: no-repeat;
-}
-
-.djangoTile {
-  background-image: url("https://static.djangoproject.com/img/logos/django-logo-negative.svg");
-  background-color: #092e20;
-  background-position: center;
-  background-size: 85%;
-  background-repeat: no-repeat;
-}
-
-.reactTile {
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg");
-  background-color: var(--black);
-  background-position: center;
-  background-size: 90%;
-  background-repeat: no-repeat;
-}
-
-.chartJSTile {
-  background-image: url("https://www.chartjs.org/img/chartjs-logo.svg");
-  background-color: var(--black);
-  background-position: center;
-  background-size: 70%;
-  background-repeat: no-repeat;
-}
-
-.drfTile {
-  background-image: url("https://www.django-rest-framework.org/img/logo.png");
-  background-color: var(--white);
-  background-position: center;
-  background-size: 100%;
-  background-repeat: no-repeat;
-  border-left: 1px solid var(--shadowLight);
-}
-
-.postgresTile {
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg");
-  background-color: var(--white);
-  background-position: center;
-  background-size: 60%;
-  background-repeat: no-repeat;
-  border-left: 1px solid var(--shadowLight);
-}
-
-.isoTile:hover {
-  box-shadow: 15px 15px 7px 0 var(--shadowLight);
-  transform: translateY(-10px) translateX(-10px);
-}
-
-/* #endregion */
-
 /* Works Screen */ /*   #region   */
 #worksScreen {
   /* background: url("./static/magTest.png"); */
   /* background-size: cover; */
-  background-color: var(--white);
+  background-color: var(--black);
 }
 
 #projectsArray {
@@ -390,33 +260,20 @@ section {
   position: absolute;
   top: 0;
   left: 0;
-  height: 90vh;
-  justify-content: space-around;
+  height: 100%;
+  justify-content: flex-start;
   align-items: center;
-  padding: 3em 0;
+  padding: 0;
 }
 
-.colLayout {
-  flex-direction: column;
-  justify-content: space-around;
-  width: 100%;
-}
-
-.app {
+.projectInfo {
+  background: var(--white);
   position: relative;
-  width: 250px;
-  height: 556px;
+  width: 70%;
+  height: 100%;
   border: 2px solid var(--black);
   border-radius: 15px;
-}
-
-.site {
-  position: relative;
-  width: 75%;
-  height: 50%;
-  /* aspect-ratio: 2; */
-  max-width: 850px;
-  border-radius: 15px;
+  margin-left: 2em;
 }
 
 .projectDisplay img {
@@ -428,47 +285,6 @@ section {
   z-index: 150;
   border-radius: 15px;
   overflow: hidden;
-}
-
-.projectDisplay::after {
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  box-shadow: 0px 0px 4px 0 var(--shadowLight);
-  transition: box-shadow 850ms ease-in-out;
-  border-radius: 15px;
-  opacity: 1;
-}
-
-.projectDisplay.currentDisplay::after {
-  box-shadow: -50px 8px 4px 0 var(--shadowLight);
-}
-
-.combo {
-  display: flex;
-  flex: 1;
-  justify-content: space-around;
-  width: 100%;
-}
-
-.comboApp {
-  position: relative;
-  width: 30%;
-  height: 60%;
-  aspect-ratio: 0.4496;
-  background-color: var(--white);
-  border-radius: 15px;
-}
-
-.comboSite {
-  position: relative;
-  width: 75%;
-  height: 50%;
-  aspect-ratio: 2;
-  background-color: var(--white);
-  border-radius: 15px;
 }
 
 @media screen and (max-width: 750px) {
