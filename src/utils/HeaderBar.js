@@ -1,3 +1,7 @@
+/**
+ * Element displayed at top of page that displays section and menu toggle button.
+ * @param {Object} scrollManager ScrollManager instance.
+ */
 export default class HeaderBar {
   constructor(scrollManager) {
     this.headerBar = document.querySelector("#headerBar");
@@ -5,11 +9,11 @@ export default class HeaderBar {
     this.scrollManager = scrollManager;
   }
 
+  /**
+   * Updates the display header based on the current screen and adds additional data
+   * if the screen is horizontally scrolling.
+   */
   updateHeaderBar() {
-    /**
-     * Updates the display header based on the current screen and adds additional data
-     * if the screen is horizontally scrolling.
-     */
     const isXScrollSection = this.scrollManager.xScrollElArray.find(
       (element) => element.index === this.scrollManager.currentScreenIndex
     );
