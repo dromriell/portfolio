@@ -1,6 +1,9 @@
+/**
+ * Navigation element to jump from section to section.
+ *
+ * @param {Object} scrollManager ScrollManager instance.
+ */
 export default class Menu {
-  // Menu object containing all related DOM elements, state, and
-  // methods to handle event listener creation and menu toggling.
   constructor(scrollManager) {
     this.scrollManager = scrollManager;
     this.elements = {
@@ -31,18 +34,16 @@ export default class Menu {
       button.addEventListener(
         "click",
         (e) => {
-          console.log(e.currentTarget.dataset.scroll);
           const id = `${e.currentTarget.dataset.scroll}`;
           const targetElement = this.scrollManager.scrollOrderArray.find(
-            (element) => {
-              console.log(element.id === id);
-              return element.id === id;
-            }
+            (element) => element.id === id
           );
+
           if (this.scrollManager.currentScreenIndex !== targetElement.index) {
             this.setFocusedButton(targetElement.index);
             this.scrollManager.handleDirectScroll(targetElement.index);
           }
+
           this.toggleMenu("close");
         },
         true
@@ -50,6 +51,11 @@ export default class Menu {
     }
   }
 
+  /**
+   * Toggles the menu to either open or closed.
+   *
+   * @param {string} action Action to be taken on menu. Either "close" or "open".
+   */
   toggleMenu(action) {
     const body = document.querySelector("body");
     if (action === "close") {
@@ -57,16 +63,21 @@ export default class Menu {
       this.elements.overlay.classList.remove("showOverlay");
       this.elements.nav.classList.remove("showRetroNav");
       this.isOpen = false;
+      this.scrollManager.isScrollLocked = false;
     } else if (action === "open") {
       body.classList.add("overflowHidden");
       this.elements.overlay.classList.add("showOverlay");
       this.elements.nav.classList.add("showRetroNav");
       this.isOpen = true;
+      this.scrollManager.isScrollLocked = true;
     }
   }
 
+  /**
+   * Highlights the current sections button.
+   * @param {number} index Index of the current section.
+   */
   setFocusedButton(index) {
-    console.log(index);
     const targetSection = this.scrollManager.scrollOrderArray[index].element;
     const targetBtn = document.querySelector(`#${targetSection.dataset.btn}`);
     document.querySelector(".menuButton.focused")?.classList.remove("focused");
