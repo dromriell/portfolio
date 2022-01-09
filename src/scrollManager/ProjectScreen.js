@@ -16,14 +16,11 @@ export default class ProjectScreen {
     this.img = project.img;
 
     this.setNodes();
-    if (this.type === "combo") {
-      this.setComboNodes();
-    }
     this.setClasses();
 
     // Append nodes
+    this.nodes.displayDiv.appendChild(this.nodes.text);
     this.nodes.article.appendChild(this.nodes.displayDiv);
-    this.nodes.article.appendChild(this.nodes.text);
   }
 
   /**
@@ -41,32 +38,9 @@ export default class ProjectScreen {
     }`;
 
     // Set img src
-    if (this.type !== "combo") {
-      const image = document.createElement("img");
-      image.setAttribute("src", this.img);
-      this.nodes.displayDiv.appendChild(image);
-    }
-  }
-
-  /**
-   * If type combo then create multiple elements and related img nodes and then append to projectDisplayDiv
-   */
-  setComboNodes() {
-    const comboFragment = document.createDocumentFragment();
-    for (const [index, comboType] of this.project.comboTypes.entries()) {
-      const comboDiv = document.createElement("div");
-      const comboImg = document.createElement("img");
-      comboDiv.setAttribute(
-        "class",
-        `combo${comboType.type[0].toUpperCase()}${comboType.type.slice(1)}
-            projectDisplay
-            `
-      );
-      comboImg.setAttribute("src", comboType.img);
-      comboDiv.appendChild(comboImg);
-      comboFragment.appendChild(comboDiv);
-    }
-    this.nodes.displayDiv.appendChild(comboFragment);
+    const image = document.createElement("img");
+    image.setAttribute("src", this.img);
+    this.nodes.displayDiv.appendChild(image);
   }
 
   /*
@@ -81,7 +55,7 @@ export default class ProjectScreen {
           : this.index === 1
           ? "nextXScroll"
           : ""
-      } ${this.type !== "app" ? "colLayout" : ""}`;
+      }`;
 
     const projectDisplayClasses =
       // Combo type displays an app and site and currentDisplay for box shadows
@@ -90,6 +64,6 @@ export default class ProjectScreen {
       }`;
 
     this.nodes.article.setAttribute("class", projectArticleClasses);
-    this.nodes.displayDiv.setAttribute("class", projectDisplayClasses);
+    this.nodes.displayDiv.setAttribute("class", "projectInfo");
   }
 }
