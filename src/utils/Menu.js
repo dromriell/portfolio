@@ -13,7 +13,7 @@ export default class Menu {
         toggle: document.querySelector("#menuToggleBtn"),
         close: document.querySelector("#menuCloseBtn"),
         home: document.querySelector("#homeBtn"),
-        works: document.querySelector("#worksBtn"),
+        works: document.querySelector("#project-1"),
         about: document.querySelector("#aboutBtn"),
         contact: document.querySelector("#contactBtn"),
       },
@@ -34,15 +34,9 @@ export default class Menu {
       button.addEventListener(
         "click",
         (e) => {
-          const id = `${e.currentTarget.dataset.scroll}`;
-          const targetElement = this.scrollManager.scrollOrderArray.find(
-            (element) => element.id === id
-          );
-
-          if (this.scrollManager.currentScreenIndex !== targetElement.index) {
-            this.setFocusedButton(targetElement.index);
-            this.scrollManager.handleDirectScroll(targetElement.index);
-          }
+          const index = e.currentTarget.dataset.scroll * 1;
+          // this.setFocusedButton(targetElement.index);
+          this.scrollManager.handleDirectScroll(index);
 
           this.toggleMenu("close");
         },
