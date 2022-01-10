@@ -12,26 +12,6 @@ import { worksData } from "./testData";
 const homeExperience = new Experience(document.querySelector("#homeCanvas"));
 
 /**
- * Projects
- */
-const renderProjectData = () => {
-  /**
-   * Renders list of project data into a nodeList of individual project screens which is then
-   * inserted into the worksScreen list div node. Auto formats based on the data received.
-   */
-  const projectsSection = document.querySelector("#projectsArray");
-  const projectElementArray = document.createDocumentFragment();
-
-  for (const [index, project] of worksData.entries()) {
-    const projectElement = new ProjectScreen(index, project);
-
-    projectElementArray.appendChild(projectElement.nodes.article);
-    projectsSection.appendChild(projectElementArray);
-  }
-};
-renderProjectData();
-
-/**
  * Navigation
  */
 const scrollManager = new ScrollManager();
@@ -41,6 +21,30 @@ const headerBar = new HeaderBar(scrollManager);
 scrollManager.onScroll = () => {
   headerBar.updateHeaderBar();
 };
+
+/**
+ * Projects
+ */
+const renderScrollXChildren = () => {
+  /**
+   * Renders data into a nodeList of individual xScroll screens which is then
+   * inserted into the parent instance and element. Auto formats based on the data received.
+   */
+  const scrollXSection = scrollManager.scrollOrderArray.find(
+    (element) => element.id === "mainScreen"
+  );
+  const projectElementArray = document.createDocumentFragment();
+
+  for (const [index, project] of worksData.entries()) {
+    const projectElement = new ProjectScreen(index, project);
+
+    projectElementArray.appendChild(projectElement.nodes.article);
+    scrollXSection.element.appendChild(projectElementArray);
+    scrollXSection.children.push(projectElement);
+  }
+  scrollXSection.updateChildren();
+};
+renderScrollXChildren();
 
 /**
  * Observers
