@@ -11,13 +11,21 @@ export default class ScrollSection {
     this.element = section;
     this.id = section.id;
     this.isXScroll = isXScroll;
-    this.children = this.element.querySelectorAll(".scrollX");
+    this.children = [];
     this.maxIndex = this.children.length - 1;
     this.currentIndex = 0;
 
-    if (this.isXScroll) {
+    if (this.isXScroll && this.children.length > 0) {
       this.setXScrollOrderClasses(0);
     }
+  }
+
+  /**
+   * Called to update instance after child added or removed from children array.
+   */
+  updateChildren() {
+    this.maxIndex = this.children.length - 1;
+    this.setXScrollOrderClasses(0);
   }
 
   /**
@@ -26,22 +34,21 @@ export default class ScrollSection {
    * @param {number} index The next vertical index to be scrolled to.
    */
   setXScrollOrderClasses(nextIndex) {
+    this.clearXScrollOrderClasses();
     const nextXScroll =
-      nextIndex < this.maxIndex ? this.children[nextIndex + 1] : null;
-    const prevXScroll = nextIndex > 0 ? this.children[nextIndex - 1] : null;
+      nextIndex < this.maxIndex
+        ? this.children[nextIndex + 1].nodes.article
+        : null;
+    const prevXScroll =
+      nextIndex > 0 ? this.children[nextIndex - 1].nodes.article : null;
     const currentXScroll =
       nextIndex >= 0 && nextIndex <= this.maxIndex
-        ? this.children[nextIndex]
+        ? this.children[nextIndex].nodes.article
         : null;
-    const currentXScrollDisplayElements =
-      currentXScroll.querySelectorAll(".projectDisplay");
 
     nextXScroll && nextXScroll.classList.add("nextXScroll");
     prevXScroll && prevXScroll.classList.add("prevXScroll");
     currentXScroll && currentXScroll.classList.add("currentXScroll");
-    for (const displayElement of currentXScrollDisplayElements) {
-      displayElement.classList.add("currentDisplay");
-    }
   }
 
   /**
