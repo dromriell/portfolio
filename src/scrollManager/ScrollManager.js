@@ -167,21 +167,31 @@ export default class ScrollManager {
   }
 
   /**
-   * Handles scrolls directly to a given vertical section using its index.
-   * Only used with vertical scroll sections.
-   * @param {number} index The index of a vertical section to scroll to.
+   * Handles scrolls directly to a given section using its index. Horizontal sections
+   * should be indexed as floats with only one decimal place (i.e. 1.2, 2.4). Vertical
+   * section indexes will work as either int or float values.
+   * @param {number} index The index of a section to scroll to.
    */
   handleDirectScroll(index) {
     this.isScrolling = true;
-    this.currentScreenIndex = index;
-    const targetSection = this.scrollOrderArray[index];
-    const nextScrollPosition =
-      this.scrollOrderArray[index].element.getBoundingClientRect().y;
+    this.isXScrollScreenFocused = false;
+    const childIndex = ((index % 1) * 10).toFixed(0) * 1; // Convert index decimal to whole number
+    const parentIndex = index - childIndex * 0.1; // Remove any decimal value from index value
+
+    this.currentScreenIndex = parentIndex;
+    const targetSection = this.scrollOrderArray[parentIndex];
+    const nextScrollPosition = targetSection.element.getBoundingClientRect().y;
     window.scrollBy({
       top: nextScrollPosition,
       behavior: "smooth",
     });
-    this.setXScrollSectionsIndexOrder(index);
+    this.setXScrollSectionsIndexOrder(parentIndex);
+
+    if (childIndex !== 0) {
+      this.isXScrollScreenFocused = true;
+      targetSection.setXScrollOrderClasses(childIndex);
+      targetSection.currentIndex = childIndex;
+    }
     this.onScroll();
     this.handleScrollTimeout();
   }
@@ -198,7 +208,7 @@ export default class ScrollManager {
       if (index < element.index) {
         element.setXScrollOrderClasses(0);
         element.currentIndex = 0;
-      } else {
+      } else if (index > element.index) {
         element.setXScrollOrderClasses(element.maxIndex);
         element.currentIndex = element.maxIndex;
       }
