@@ -15,21 +15,21 @@ const homeExperience = new Experience(document.querySelector("#homeCanvas"));
  * Navigation
  */
 const scrollManager = new ScrollManager();
-const navMenu = new Menu(scrollManager);
-const headerBar = new HeaderBar(scrollManager);
+const headerBar = new HeaderBar(scrollManager, false);
 
 scrollManager.onScroll = () => {
-  headerBar.updateHeaderBar();
+  headerBar.updateMarker();
 };
 
 /**
  * Projects
  */
+
 const renderScrollXChildren = () => {
-  /**
-   * Renders data into a nodeList of individual xScroll screens which is then
-   * inserted into the parent instance and element. Auto formats based on the data received.
-   */
+  // Renders data into a nodeList of individual xScroll screens
+  // which is then inserted into the parent instance and element.
+  // Auto formats based on the data received.
+
   const scrollXSection = scrollManager.scrollOrderArray.find(
     (element) => element.id === "mainScreen"
   );
@@ -37,12 +37,17 @@ const renderScrollXChildren = () => {
 
   for (const [index, project] of worksData.entries()) {
     const projectElement = new ProjectScreen(index, project);
+    projectElement.nodes.article.setAttribute(
+      "data-btn",
+      `${scrollXSection.index}.${projectElement.index}`
+    );
 
     projectElementArray.appendChild(projectElement.nodes.article);
     scrollXSection.element.appendChild(projectElementArray);
     scrollXSection.children.push(projectElement);
   }
   scrollXSection.updateChildren();
+  headerBar.setHeaderBarButtons(); // Update header bar to add new section buttons
 };
 renderScrollXChildren();
 
