@@ -279,7 +279,6 @@ export default class ScrollManager {
     if (
       e.keyCode > 31 &&
       e.keyCode < 41 &&
-      !this.menu.state.isOpen &&
       document.querySelectorAll("input:focus").length === 0 //Skip if user is focused on input
     ) {
       e.stopPropagation();
