@@ -33,6 +33,7 @@ export default class ProjectScreen {
       text: document.createElement("h2"),
     };
     this.nodes.article.setAttribute("id", `project-${this.index}`);
+    this.nodes.article.setAttribute("name", this.name);
     this.nodes.text.innerText = `${this.name.toUpperCase()} - ${
       this.description
     }`;
@@ -55,12 +56,6 @@ export default class ProjectScreen {
           : this.index === 1
           ? "nextXScroll"
           : ""
-      }`;
-
-    const projectDisplayClasses =
-      // Combo type displays an app and site and currentDisplay for box shadows
-      `${this.type} ${this.type !== "combo" ? "projectDisplay" : ""} ${
-        this.index === 0 ? "currentDisplay" : ""
       }`;
 
     this.nodes.article.setAttribute("class", projectArticleClasses);
