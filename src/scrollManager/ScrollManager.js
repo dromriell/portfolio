@@ -176,7 +176,7 @@ export default class ScrollManager {
     this.isScrolling = true;
     this.isXScrollScreenFocused = false;
     const childIndex = ((index % 1) * 10).toFixed(0) * 1; // Convert index decimal to whole number
-    const parentIndex = index - childIndex * 0.1; // Remove any decimal value from index value
+    const parentIndex = Math.floor(index); // Remove any decimal value from index value
 
     this.currentScreenIndex = parentIndex;
     const targetSection = this.scrollOrderArray[parentIndex];
@@ -187,7 +187,7 @@ export default class ScrollManager {
     });
     this.setXScrollSectionsIndexOrder(parentIndex);
 
-    if (childIndex !== 0) {
+    if (targetSection.isXScroll) {
       this.isXScrollScreenFocused = true;
       targetSection.setXScrollOrderClasses(childIndex);
       targetSection.currentIndex = childIndex;
