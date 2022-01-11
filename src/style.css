@@ -10,11 +10,10 @@ body {
 
 canvas {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   outline: none;
-  /* max-width: 75vw;
-    max-height: 33vw; */
+  height: 100%;
 }
 
 :root {
@@ -71,6 +70,7 @@ section {
   position: relative;
   display: flex;
   background-color: var(--white);
+  max-height: 100%;
 }
 
 .button {
@@ -553,7 +553,7 @@ section {
   top: 0;
   left: 0;
   right: 0;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   width: "100%";
   height: 2em;
@@ -566,6 +566,26 @@ section {
   font-family: "VT323", monospace;
   font-size: 34px;
   color: var(--grey);
+  margin: 0 1em;
+}
+
+#headerBar h4 {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  color: var(--grey);
+}
+
+#headerBar ul {
+  list-style: none;
+  display: flex;
+  flex: 1;
+}
+
+#headerBar ul:nth-child(1) {
+  justify-content: flex-end;
+}
+#headerBar ul:nth-child(2) {
+  justify-content: flex-start;
 }
 
 #menuToggleBtn {
