@@ -93,5 +93,3 @@ window.addEventListener("resize", () => {
 window.addEventListener("DOMContentLoaded", () => {
   scrollManager.handleDirectScroll(0);
 });
-
-window.addEventListener("scrollEvent", console.log("SCROLL"));
