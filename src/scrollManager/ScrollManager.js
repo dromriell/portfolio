@@ -34,6 +34,8 @@ export default class ScrollManager {
     });
 
     this.onScroll = () => {};
+    this.onScrollEnd = () => {};
+
     this.setScrollOrder();
 
     // Handlers
@@ -107,16 +109,19 @@ export default class ScrollManager {
    */
   executeScroll(scrollDelta) {
     this.isScrolling = true;
+    this.onScroll();
 
     if (this.isXScrollScreenFocused) {
       this.handleHorizontalScroll(scrollDelta);
     } else {
       this.handleVerticalScroll(scrollDelta);
     }
+    this.scrollEvent.detail.index = this.currentScreenIndex;
+    this.scrollEvent.detail.isXScroll = this.isXScrollScreenFocused;
     window.dispatchEvent(this.scrollEvent);
 
-    this.onScroll();
     this.handleScrollTimeout();
+    this.onScrollEnd();
   }
 
   /**
@@ -192,7 +197,7 @@ export default class ScrollManager {
       targetSection.setXScrollOrderClasses(childIndex);
       targetSection.currentIndex = childIndex;
     }
-    this.onScroll();
+    this.onScroll(); // Callback function for this section
     this.handleScrollTimeout();
   }
 
@@ -286,5 +291,13 @@ export default class ScrollManager {
       const isScrollDown = [32, 34, 39, 40].includes(e.keyCode) ? 100 : -100;
       this.executeScroll(isScrollDown);
     }
+  }
+
+  /**
+   * Returns a ScrollSection instance by ID
+   * @param {string} id The ID of the element to search for
+   */
+  getSectionByID(id) {
+    return this.scrollOrderArray.find((element) => element.id === id);
   }
 }
