@@ -1,9 +1,13 @@
 import ScrollManager from "./scrollManager/ScrollManager";
 import "./style.css";
 import Experience from "./threeExp/Experience";
-import HeaderBar from "./utils/HeaderBar";
-import Menu from "./utils/Menu";
-import ProjectScreen from "./scrollManager/ProjectScreen";
+import HeaderBar from "./components/HeaderBar";
+import ContentTable from "./components/ContentTable";
+import AnimatedHeader from "./components/AnimatedHeader";
+import XScrollScreen from "./scrollManager/XScrollScreen";
+
+import ParallaxItem from "./scrollManager/ParallaxItem";
+import ParallaxManager from "./scrollManager/ParallaxManager";
 import { worksData } from "./testData";
 
 /**
@@ -16,40 +20,53 @@ const homeExperience = new Experience(document.querySelector("#homeCanvas"));
  */
 const scrollManager = new ScrollManager();
 const headerBar = new HeaderBar(scrollManager, false);
+const contentTable = new ContentTable(document.querySelector("#mainScreen"));
+const parallaxManager = new ParallaxManager(
+  scrollManager.getSectionByID("mainScreen").element
+);
 
 scrollManager.onScroll = () => {
   headerBar.updateMarker();
 };
 
 /**
- * Projects
+ * Horizontal Scroll Sections
  */
-
 const renderScrollXChildren = () => {
   // Renders data into a nodeList of individual xScroll screens
   // which is then inserted into the parent instance and element.
   // Auto formats based on the data received.
 
-  const scrollXSection = scrollManager.scrollOrderArray.find(
-    (element) => element.id === "mainScreen"
-  );
-  const projectElementArray = document.createDocumentFragment();
+  const scrollXSection = scrollManager.getSectionByID("mainScreen");
 
-  for (const [index, project] of worksData.entries()) {
-    const projectElement = new ProjectScreen(index, project);
-    projectElement.nodes.article.setAttribute(
+  for (const [index, data] of worksData.entries()) {
+    const sectionElement = new XScrollScreen(index, data);
+    sectionElement.setAttribute(
       "data-btn",
-      `${scrollXSection.index}.${projectElement.index}`
+      `${scrollXSection.index}.${sectionElement.index}`
     );
 
-    projectElementArray.appendChild(projectElement.nodes.article);
-    scrollXSection.element.appendChild(projectElementArray);
-    scrollXSection.children.push(projectElement);
+    const sectionHeader = new AnimatedHeader(sectionElement.name, {
+      allCaps: true,
+    });
+    contentTable.addChild(sectionHeader);
+
+    const parallaxItem = new ParallaxItem(sectionElement.img, index);
+    parallaxManager.children.push(parallaxItem);
+
+    sectionElement.onScroll = () => {
+      sectionHeader.animate();
+    };
+    scrollXSection.children.push(sectionElement);
   }
+
+  parallaxManager.setBackground();
   scrollXSection.updateChildren();
+  scrollXSection.onScroll = (index) => parallaxManager.setIndex(index);
   headerBar.setHeaderBarButtons(); // Update header bar to add new section buttons
 };
 renderScrollXChildren();
+contentTable.create();
 
 /**
  * Observers
@@ -69,19 +86,7 @@ const homeObserver = new IntersectionObserver((entries) => {
   });
 });
 
-const aboutObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    const polaroidFrame = entry.target.querySelector(".polaroidFrame");
-    if (entry.isIntersecting) {
-      polaroidFrame.classList.remove("polaroidScale");
-      return;
-    }
-    polaroidFrame.classList.add("polaroidScale");
-  });
-});
-
 homeObserver.observe(document.querySelector("#homeScreen"));
-aboutObserver.observe(document.querySelector("#aboutScreen"));
 
 /**
  * Event Listeners
@@ -91,5 +96,5 @@ window.addEventListener("resize", () => {
 });
 
 window.addEventListener("DOMContentLoaded", () => {
-  scrollManager.handleDirectScroll(0);
+  console.log("DOM LOADED");
 });
