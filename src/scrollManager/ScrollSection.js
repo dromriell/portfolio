@@ -25,6 +25,13 @@ export default class ScrollSection {
    */
   updateChildren() {
     this.maxIndex = this.children.length - 1;
+    const sectionElementArray = document.createDocumentFragment();
+    this.children.forEach((child) =>
+      sectionElementArray.appendChild(child.nodes.article)
+    );
+
+    this.element.appendChild(sectionElementArray);
+
     this.setXScrollOrderClasses(0);
   }
 
@@ -35,6 +42,24 @@ export default class ScrollSection {
    */
   setXScrollOrderClasses(nextIndex) {
     this.clearXScrollOrderClasses();
+    this.onScroll(nextIndex);
+
+    // Sets all children ahead of the nextXScroll further along the +X axis
+    if (nextIndex + 1 < this.maxIndex) {
+      for (let i = 0; i < this.maxIndex - nextIndex - 1; i++) {
+        this.children[this.maxIndex - i].nodes.article.classList.add(
+          "futureXScroll"
+        );
+      }
+    }
+
+    // Sets all children behind the prevXScroll further along the -X axis
+    if (nextIndex - 2 >= 0) {
+      for (let i = 0; i < nextIndex - 1; i++) {
+        this.children[i].nodes.article.classList.add("pastXScroll");
+      }
+    }
+
     const nextXScroll =
       nextIndex < this.maxIndex
         ? this.children[nextIndex + 1].nodes.article
@@ -56,16 +81,16 @@ export default class ScrollSection {
    * if one is found.
    */
   clearXScrollOrderClasses() {
+    this.element.querySelector(".pastXScroll")?.classList.remove("pastXScroll");
     this.element.querySelector(".prevXScroll")?.classList.remove("prevXScroll");
     this.element
       .querySelector(".currentXScroll")
       ?.classList.remove("currentXScroll");
     this.element.querySelector(".nextXScroll")?.classList.remove("nextXScroll");
-
-    for (const displayElement of this.element.querySelectorAll(
-      ".currentDisplay"
-    )) {
-      displayElement.classList.remove("currentDisplay");
-    }
+    this.element
+      .querySelector(".futureXScroll")
+      ?.classList.remove("futureXScroll");
   }
+
+  onScroll() {}
 }
