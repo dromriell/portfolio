@@ -71,6 +71,7 @@ section {
   display: flex;
   background-color: var(--white);
   max-height: 100%;
+  z-index: 50;
 }
 
 .button {
@@ -101,10 +102,6 @@ section {
   width: 100vw;
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
-  /* height: 100%; */
-  /* min-height: 100vh; */
-  /* mobile viewport bug fix */
-  /* min-height: -webkit-fill-available; */
 }
 
 .scrollMargin {
@@ -119,7 +116,13 @@ section {
   transition: transform 900ms ease-in-out, filter 900ms ease-in;
 }
 
+.pastXScroll {
+  transform: translateX(-200vw);
+  display: flex;
+}
+
 .prevXScroll {
+  transform: translateX(-100vw);
   display: flex;
   /* filter: blur(5px); */
 }
@@ -133,6 +136,11 @@ section {
   transform: translateX(100vw);
   display: flex;
   /* filter: blur(5px); */
+}
+
+.futureXScroll {
+  transform: translateX(200vw);
+  display: flex;
 }
 
 .sectionBreak {
@@ -235,11 +243,91 @@ section {
 
 /*   #endregion   */
 
-/* Works Screen */ /*   #region   */
-#worksScreen {
-  /* background: url("./static/magTest.png"); */
-  /* background-size: cover; */
-  background-color: var(--black);
+.parallaxContainer {
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  width: 300%;
+  height: 100%;
+}
+
+.parralaxItem {
+  position: absolute;
+  left: 0;
+  width: 120vw;
+  height: 100%;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  transition: transform 900ms ease-in-out;
+  z-index: 0;
+}
+
+.parralaxItem > img {
+  position: absolute;
+  width: 75%;
+  height: 100%;
+  right: -10%;
+  transition: transform 1000ms linear;
+}
+
+.parallaxFocus {
+  transform: translateX(0);
+}
+
+.parallaxBefore {
+  transform: translateX(-100vw);
+}
+
+.parallaxNext {
+  transform: translateX(100vw);
+}
+
+.parallaxFocus > img {
+  transform: translateX(0);
+}
+
+.parallaxBefore > img {
+  transform: translateX(-10%);
+}
+
+.parallaxNext > img {
+  transform: translateX(10%);
+}
+
+/* Main Screen */ /*   #region   */
+#mainScreen {
+  background-color: var(--gold);
+}
+
+.contentTable {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+  position: absolute;
+  right: 2em;
+  top: 25%;
+  height: 12em;
+  font-size: 24px;
+  z-index: 150;
+}
+
+.animatedHeader {
+  color: black;
+  height: 2em;
+  line-height: 2em;
+}
+.animatedHeader span {
+  height: 100%;
+  margin: auto 0;
+}
+
+.animatedHeaderActive {
+  color: white;
+  font-size: 1.1em;
 }
 
 #projectsArray {
@@ -256,7 +344,29 @@ section {
   line-height: 1.55em;
 }
 
-.projectContainer {
+.xScreenBg {
+  position: absolute;
+  top: 0;
+  right: -5%;
+  height: 100%;
+  width: 60%;
+  transition: transform 900ms ease-in-out, filter 900ms ease-in;
+}
+
+.xScreenBg > img {
+  width: 100%;
+  height: 100%;
+}
+
+.xScreenBg.parallaxBgPrev {
+  transform: translateX(-10%);
+}
+
+.xScreenBg.parallaxBgNext {
+  transform: translateX(+10%);
+}
+
+.xScreenContainer {
   position: absolute;
   top: 0;
   left: 0;
@@ -264,25 +374,27 @@ section {
   justify-content: flex-start;
   align-items: center;
   padding: 0;
+  z-index: 110;
 }
 
-.projectInfo {
+.xScreenInfo {
   background: var(--white);
   position: relative;
-  width: 70%;
+  width: 50%;
   height: 100%;
-  border: 2px solid var(--black);
-  border-radius: 15px;
-  margin-left: 2em;
+  z-index: 10;
+  border-right: 1px solid var(--shadowDark);
+  border-left: 1px solid var(--shadowDark);
+  box-shadow: 10px 5px 15px 5px var(--shadowLight);
 }
 
-.projectDisplay img {
+.xScreenInfo img {
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   width: 100%;
   height: 100%;
-  z-index: 150;
+  z-index: 1;
   border-radius: 15px;
   overflow: hidden;
 }
@@ -296,40 +408,6 @@ section {
 
   .projectContainer {
     padding: 0;
-  }
-
-  .app {
-    width: 150px;
-    height: 333px;
-    background-color: var(--white);
-    border-radius: 15px;
-  }
-
-  .site {
-    height: 50%;
-    aspect-ratio: 1;
-  }
-
-  .combo {
-    flex-direction: column;
-    width: 90%;
-  }
-
-  .comboApp {
-    position: relative;
-    align-self: flex-end;
-    width: 30%;
-    aspect-ratio: 0.4496;
-    background-color: var(--white);
-    border-radius: 15px;
-  }
-
-  .comboSite {
-    position: relative;
-    width: 70%;
-    aspect-ratio: 1;
-    background-color: var(--white);
-    border-radius: 15px;
   }
 }
 
@@ -560,6 +638,7 @@ section {
   padding: 7px 10px;
   font-family: "VT323", monospace;
   font-size: 34px;
+  z-index: 200;
 }
 
 #headerBar > h1 {
@@ -588,18 +667,7 @@ section {
   justify-content: flex-start;
 }
 
-#menuToggleBtn {
-  position: absolute;
-  right: 15px;
-  background-color: var(--grey);
-  transition: var(--buttonHoverTransition);
-  z-index: 199;
-}
-
-#menuToggleBtn:hover {
-  transform: scale(1.05);
-}
-
+/* Overlays */
 .overlay {
   position: fixed;
   top: 0;
@@ -637,69 +705,6 @@ section {
   display: flex;
 }
 
-.retroNav {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  justify-content: space-around;
-  top: 0;
-  right: -300px;
-  bottom: 0;
-  width: 265px;
-  padding: 10px 5px;
-  background-color: var(--darkBlue);
-  z-index: 200;
-  transition: width 300ms ease-in-out, right 300ms ease-in-out;
-  overflow: hidden;
-}
-
-.showRetroNav {
-  right: 0;
-}
-
-.retroNavRow {
-  display: flex;
-  justify-content: flex-end;
-  width: "100%";
-  padding: 2px 5px;
-  border-radius: 5px;
-  background-color: var(--grey);
-  box-shadow: -2px -2px 3px 0 #63b2ec;
-  margin: 5px 0;
-}
-
-.retroNavCloseRow {
-  height: 2em;
-  aspect-ratio: 1;
-}
-
-.closeButton {
-  display: flex;
-  align-items: center;
-  padding: 0 3px;
-  background-color: var(--black);
-  color: var(--red);
-  border: 1px solid var(--red);
-  border-radius: 4px;
-  box-shadow: 0 4px 4px 5px var(--redShadow), inset 0 -1px 4px 1px;
-  cursor: pointer;
-  transition: var(--buttonHoverTransition);
-}
-
-.closeButton:hover {
-  transform: scale(1.05);
-}
-
-.retroNavButtonGroup {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 10px;
-  border: 1px solid var(--blueShadow);
-  box-shadow: -2px -2px 3px 0 #63b2ec;
-}
-
 .menuButton {
   color: var(--black);
   padding: 5px 20px;
@@ -719,132 +724,4 @@ section {
   padding-top: 6px;
 }
 
-.retroNavLinkGroup {
-  display: flex;
-  justify-content: space-around;
-  padding: 11px 5px;
-  background-color: var(--screenTan);
-}
-
-.retroNavLogoPlate {
-  display: flex;
-  flex-direction: column;
-  aspect-ratio: 1;
-  max-height: 275px;
-  padding: 3px;
-  border: 3px solid var(--black);
-  background-color: var(--black);
-}
-
-.logoPlateScrewRow {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.logoPlateLogo {
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-}
-
-@media screen and (max-width: 1050px) {
-  #menuToggleBtn {
-    right: 5px;
-    font-size: 18px;
-    letter-spacing: 0.05rem;
-  }
-
-  .retroNavLinkGroup {
-    padding: 0;
-  }
-
-  .retroNavLogoPlate {
-    aspect-ratio: unset;
-  }
-}
-
 /*   #endregion   */
-
-/* INFO MENU */ /*   #region   */
-
-#infoMenu {
-  display: none;
-  position: fixed;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  bottom: 0;
-  left: 0;
-  width: 100vw;
-  height: 1.75em;
-  background-color: var(--grey);
-  color: var(--white);
-  transition: height 400ms ease-in-out, bottom 200ms ease-in-out;
-  z-index: 199;
-}
-
-#infoMenu .infoMenuDisplay {
-  display: none;
-}
-
-#infoMenu:hover {
-  cursor: pointer;
-}
-
-#infoMenu.open {
-  height: 50%;
-}
-
-#infoMenu svg {
-  transition: transform 250ms ease-in;
-}
-
-#infoMenu.open svg {
-  transform: rotate(540deg);
-  color: var(--red);
-}
-
-#infoMenuHeader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 1.75em;
-  letter-spacing: 0.5em;
-}
-
-#infoMenuTextContainer {
-  display: flex;
-  width: 90%;
-  height: 80%;
-  padding: 0.25em;
-  background-color: var(--black);
-  border: 1px solid var(--gold);
-}
-
-#infoMenuTextContainer > h4 {
-  letter-spacing: 0;
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 1.5em;
-}
-
-@media screen and (max-width: 750px) {
-  #infoMenu {
-    display: flex;
-  }
-
-  #infoMenu.hidden {
-    bottom: -2em;
-  }
-}
-
-/*   #endregion   */
-
-@supports not (aspect-ratio: 1/1) {
-  .isoTile {
-    height: calc(var(--isoTileWidth) * 1.7);
-  }
-}
