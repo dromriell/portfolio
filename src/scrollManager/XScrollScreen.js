@@ -70,6 +70,8 @@ export default class XScrollScreen {
         if (entry.isIntersecting) {
           this.onScroll();
           return;
+        } else {
+          this.onScrollExit();
         }
       });
     });
@@ -86,4 +88,6 @@ export default class XScrollScreen {
   }
 
   onScroll() {}
+
+  onScrollExit() {}
 }
