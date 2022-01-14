@@ -40,23 +40,28 @@ const renderScrollXChildren = () => {
   const scrollXSection = scrollManager.getSectionByID("mainScreen");
 
   for (const [index, data] of worksData.entries()) {
+    // Init related components
     const sectionElement = new XScrollScreen(index, data);
     sectionElement.setAttribute(
       "data-btn",
       `${scrollXSection.index}.${sectionElement.index}`
     );
-
     const sectionHeader = new AnimatedHeader(sectionElement.name, {
       allCaps: true,
     });
-    contentTable.addChild(sectionHeader);
-
     const parallaxItem = new ParallaxItem(sectionElement.img, index);
-    parallaxManager.children.push(parallaxItem);
 
+    // Set callbacks for scroll events
     sectionElement.onScroll = () => {
       sectionHeader.animate();
     };
+    sectionElement.onScrollExit = () => {
+      sectionHeader.animate(false);
+    };
+
+    // Add children to parent components
+    contentTable.addChild(sectionHeader);
+    parallaxManager.children.push(parallaxItem);
     scrollXSection.children.push(sectionElement);
   }
 
