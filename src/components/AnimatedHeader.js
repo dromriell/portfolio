@@ -54,11 +54,16 @@ export default class AnimatedHeader {
    * @param {number} delay Delay in ms. If isCascade set to false, will be set to 0.
    * @param {Boolean} isCascade Should animation cascade or happen at once. Default is true.
    */
-  animate(delay = 50, isCascade = true) {
+  animate(isActive = true, delay = 50, isCascade = true) {
     delay = isCascade ? delay : 0;
     this.children.forEach((child, index) => {
-      setTimeout(() => this.#setActive(child), delay * index);
-      setTimeout(() => this.#setIdle(child), delay * (index + 1));
+      setTimeout(() => {
+        if (isActive) {
+          this.#setActive(child);
+        } else {
+          this.#setIdle(child);
+        }
+      }, delay * index);
     });
   }
 
