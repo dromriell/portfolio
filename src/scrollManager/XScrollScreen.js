@@ -17,6 +17,11 @@ export default class XScrollScreen {
     this.setObserver();
 
     // Append nodes
+    this.setChildren();
+  }
+
+  setChildren() {
+    this.nodes.displayDiv.appendChild(this.nodes.header);
     this.nodes.displayDiv.appendChild(this.nodes.text);
     this.nodes.article.appendChild(this.nodes.displayDiv);
     this.nodes.article.appendChild(this.nodes.observerTrigger);
@@ -29,6 +34,7 @@ export default class XScrollScreen {
     this.nodes = {
       article: document.createElement("article"),
       displayDiv: document.createElement("div"),
+      header: document.createElement("div"),
       text: document.createElement("h2"),
       observerTrigger: document.createElement("div"),
       img: document.createElement("img"),
@@ -60,6 +66,7 @@ export default class XScrollScreen {
       }`;
 
     this.nodes.article.setAttribute("class", articleClasses);
+    this.nodes.header.setAttribute("class", "xScreenHeader");
     this.nodes.displayDiv.setAttribute("class", "xScreenInfo");
     this.nodes.observerTrigger.classList.add("observerTrigger");
   }
