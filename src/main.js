@@ -60,7 +60,8 @@ const renderScrollXChildren = () => {
     };
 
     // Add children to parent components
-    contentTable.addChild(sectionHeader);
+    // contentTable.addChild(sectionHeader);
+    sectionHeader.appendToTarget(sectionElement.nodes.header);
     parallaxManager.children.push(parallaxItem);
     scrollXSection.children.push(sectionElement);
   }
