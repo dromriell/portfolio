@@ -23,8 +23,10 @@ export default class ParallaxManager {
         child.element.classList.add("parallaxBefore");
       } else if (index === childIndex) {
         child.element.classList.add("parallaxFocus");
-      } else if (index < childIndex) {
+      } else if (index === childIndex - 1) {
         child.element.classList.add("parallaxNext");
+      } else {
+        child.element.classList.add("parallaxLast");
       }
     });
   }
@@ -33,5 +35,6 @@ export default class ParallaxManager {
     childElement.classList.remove("parallaxBefore");
     childElement.classList.remove("parallaxFocus");
     childElement.classList.remove("parallaxNext");
+    childElement.classList.remove("parallaxLast");
   }
 }
