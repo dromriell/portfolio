@@ -21,9 +21,8 @@ export default class XScrollScreen {
   }
 
   setChildren() {
-    this.nodes.displayDiv.appendChild(this.nodes.header);
-    this.nodes.displayDiv.appendChild(this.nodes.text);
     this.nodes.article.appendChild(this.nodes.displayDiv);
+    this.nodes.article.appendChild(this.nodes.header);
     this.nodes.article.appendChild(this.nodes.observerTrigger);
   }
 
