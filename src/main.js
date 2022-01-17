@@ -2,12 +2,11 @@ import ScrollManager from "./scrollManager/ScrollManager";
 import "./style.css";
 import Experience from "./threeExp/Experience";
 import HeaderBar from "./components/HeaderBar";
-import ContentTable from "./components/ContentTable";
 import AnimatedHeader from "./components/AnimatedHeader";
 import XScrollScreen from "./scrollManager/XScrollScreen";
-
 import ParallaxItem from "./scrollManager/ParallaxItem";
 import ParallaxManager from "./scrollManager/ParallaxManager";
+import { AboutInfo, DevelopeInfo } from "./components/SectionInfo";
 import { worksData } from "./testData";
 
 /**
@@ -20,12 +19,11 @@ const homeExperience = new Experience(document.querySelector("#homeCanvas"));
  */
 const scrollManager = new ScrollManager();
 const headerBar = new HeaderBar(scrollManager, false);
-const contentTable = new ContentTable(document.querySelector("#mainScreen"));
 const parallaxManager = new ParallaxManager(
   scrollManager.getSectionByID("mainScreen").element
 );
 
-scrollManager.onScroll = () => {
+scrollManager.onScrollEnd = () => {
   headerBar.updateMarker();
 };
 
@@ -51,6 +49,14 @@ const renderScrollXChildren = () => {
     });
     const parallaxItem = new ParallaxItem(sectionElement.img, index);
 
+    if (data.name === "About") {
+      const aboutInfo = new AboutInfo(data);
+      sectionElement.nodes.displayDiv.appendChild(aboutInfo.element);
+    } else if (data.name === "Develope") {
+      const developeInfo = new DevelopeInfo(data);
+      sectionElement.nodes.displayDiv.appendChild(developeInfo.element);
+    }
+
     // Set callbacks for scroll events
     sectionElement.onScroll = () => {
       sectionHeader.animate();
@@ -60,7 +66,6 @@ const renderScrollXChildren = () => {
     };
 
     // Add children to parent components
-    // contentTable.addChild(sectionHeader);
     sectionHeader.appendToTarget(sectionElement.nodes.header);
     parallaxManager.children.push(parallaxItem);
     scrollXSection.children.push(sectionElement);
@@ -72,7 +77,6 @@ const renderScrollXChildren = () => {
   headerBar.setHeaderBarButtons(); // Update header bar to add new section buttons
 };
 renderScrollXChildren();
-contentTable.create();
 
 /**
  * Observers
