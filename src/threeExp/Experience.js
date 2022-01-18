@@ -1,17 +1,14 @@
 import * as THREE from "three";
 
-import Camera from "./Camera";
+import Camera from "./landingScreen/TilesCamera";
 import Renderer from "./Renderer";
 import Resources from "./utils/Resources";
 import Sizes from "./utils/Sizes";
 import Time from "./utils/Time";
-import World from "./landingScreen/World";
 import Debug from "./utils/Debug";
 
-import sources from "./sources";
-
 export default class Experience {
-  constructor(canvas) {
+  constructor(canvas, sources, World, Camera) {
     // Options
     this.canvas = canvas;
 
@@ -51,7 +48,7 @@ export default class Experience {
 
   update() {
     this.camera.update();
-    // this.world.update()
+    this.world.update();
     this.renderer.update();
   }
 
