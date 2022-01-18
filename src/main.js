@@ -1,6 +1,12 @@
 import ScrollManager from "./scrollManager/ScrollManager";
 import "./style.css";
 import Experience from "./threeExp/Experience";
+import TilesWorld from "./threeExp/landingScreen/TilesWorld";
+import TilesCamera from "./threeExp/landingScreen/TilesCamera";
+import BathroomWorld from "./threeExp/bathroom/BathroomWorld";
+import BathroomCamera from "./threeExp/bathroom/BathroomCamera";
+import { tileSources, bathroomSources } from "./threeExp/sources";
+
 import HeaderBar from "./components/HeaderBar";
 import AnimatedHeader from "./components/AnimatedHeader";
 import XScrollScreen from "./scrollManager/XScrollScreen";
@@ -12,7 +18,19 @@ import { worksData } from "./testData";
 /**
  * 3D Scenes
  */
-const homeExperience = new Experience(document.querySelector("#homeCanvas"));
+const homeExperience = new Experience(
+  document.querySelector("#homeCanvas"),
+  tileSources,
+  TilesWorld,
+  TilesCamera
+);
+const designCanvas = document.createElement("canvas");
+const designExp = new Experience(
+  designCanvas,
+  bathroomSources,
+  BathroomWorld,
+  BathroomCamera
+);
 
 /**
  * Navigation
@@ -55,6 +73,8 @@ const renderScrollXChildren = () => {
     } else if (data.name === "Develope") {
       const developeInfo = new DevelopeInfo(data);
       sectionElement.nodes.displayDiv.appendChild(developeInfo.element);
+    } else if (data.name === "& Design") {
+      sectionElement.nodes.displayDiv.appendChild(designCanvas);
     }
 
     // Set callbacks for scroll events
