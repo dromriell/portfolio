@@ -116,6 +116,7 @@ export default class ScrollManager {
     } else {
       this.handleVerticalScroll(scrollDelta);
     }
+    // Set scrollEvent details
     this.scrollEvent.detail.index = this.currentScreenIndex;
     this.scrollEvent.detail.isXScroll = this.isXScrollScreenFocused;
     window.dispatchEvent(this.scrollEvent);

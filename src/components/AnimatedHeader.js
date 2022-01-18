@@ -68,9 +68,7 @@ export default class AnimatedHeader {
   }
 
   appendToTarget(parentElement) {
-    console.log(parentElement);
     parentElement.appendChild(this.element);
-    console.log(parentElement);
   }
 
   #setActive(child) {

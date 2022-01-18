@@ -48,7 +48,6 @@ export default class Tiles {
     this.model.children.forEach((child) => {
       switch (child.name) {
         case "floor":
-          console.log("floor here");
           child.material = this.materials.floor;
           break;
         default:

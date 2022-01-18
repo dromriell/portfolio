@@ -25,7 +25,6 @@ export class AboutInfo extends SectionInfo {
   }
 
   createChildren() {
-    console.log(this);
     const info = document.createElement("p");
     info.innerText = this.data.description;
     this.element.appendChild(info);
