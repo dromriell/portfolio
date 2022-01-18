@@ -8,7 +8,7 @@ export default class Resources {
     this.sources = sources;
 
     // Events
-    this.readyEvent = new CustomEvent("ready", {});
+    this.readyEvent = new CustomEvent("ready");
 
     // Setup
     this.items = {};
@@ -22,7 +22,9 @@ export default class Resources {
   setLoaders() {
     this.loaders = {};
     this.loaders.dracoLoader = new DRACOLoader();
-    this.loaders.dracoLoader.setDecoderPath("static/draco/");
+    this.loaders.dracoLoader.setDecoderPath(
+      "/@fs/C:/Users/devon/WebDev/portfolio3/portfolio/static/draco/"
+    );
     this.loaders.gltfLoader = new GLTFLoader();
     this.loaders.gltfLoader.setDRACOLoader(this.loaders.dracoLoader);
     this.loaders.textureLoader = new THREE.TextureLoader();
@@ -64,8 +66,11 @@ export default class Resources {
     this.loaded++;
 
     if (this.loaded === this.toLoad) {
-      console.log("LOADED");
-      document.dispatchEvent(this.readyEvent);
+      document.dispatchEvent(
+        new CustomEvent("ready", {
+          detail: { type: source.parent },
+        })
+      );
     }
   }
 }
