@@ -105,7 +105,7 @@ section {
 }
 
 .scrollMargin {
-  margin: 5vh 0;
+  margin: 0;
 }
 
 .scrollX {
@@ -389,6 +389,7 @@ section {
   justify-content: flex-end;
   margin-top: 1em;
   font-size: 3em;
+  z-index: 150;
 }
 
 .xScreenInfo {
@@ -399,7 +400,6 @@ section {
   width: 100%;
   height: 100%;
   z-index: 10;
-  padding: 2em;
 }
 
 .xScreenInfo img {
