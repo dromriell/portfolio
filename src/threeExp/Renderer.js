@@ -21,7 +21,7 @@ export default class Renderer {
     this.instance.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.instance.outputEncoding = THREE.sRGBEncoding;
 
-    // this.instance.setClearColor('#211d20')
+    this.instance.setClearColor("#211d20");
   }
 
   resize() {
