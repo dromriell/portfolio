@@ -148,6 +148,60 @@ section {
   background-color: var(--white);
 }
 
+.parallaxContainer {
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  width: 300%;
+  height: 100%;
+}
+
+.parralaxItem {
+  position: absolute;
+  left: 0;
+  width: 120vw;
+  height: 100%;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  transition: transform 900ms ease-in-out;
+  z-index: 0;
+}
+
+.parralaxItem > img {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  left: 0;
+  bottom: 0;
+  transition: transform 900ms ease-in-out;
+}
+
+.parallaxFocus {
+  transform: translateX(0);
+}
+
+.parallaxFocus > img {
+  transform: translateX(0);
+}
+
+.parallaxNext {
+  transform: translateX(100vw);
+}
+
+.parallaxNext > img {
+  transform: translateX(-90vw);
+}
+
+.parallaxLast {
+  transform: translateX(200vw);
+}
+
+.parallaxBefore > img {
+  transform: translateX(-10%);
+}
+
 /* #endregion */
 
 /* Home Screen */ /*   #region   */
@@ -163,7 +217,6 @@ section {
 
 #homeScreen h1 {
   width: 9em;
-  /* background: url("https://rpsthecoder.github.io/img-repo/Taitō%20by%20Jezael%20Melgoza.jpg") center; */
   background: url("../static/sunset.gif") center;
   background-clip: text;
   -webkit-background-clip: text;
@@ -243,81 +296,9 @@ section {
 
 /*   #endregion   */
 
-.parallaxContainer {
-  position: absolute;
-  top: 0;
-  display: flex;
-  flex-direction: row;
-  width: 300%;
-  height: 100%;
-}
-
-.parralaxItem {
-  position: absolute;
-  left: 0;
-  width: 120vw;
-  height: 100%;
-  overflow: hidden;
-  background-size: cover;
-  background-position: center;
-  transition: transform 900ms ease-in-out;
-  z-index: 0;
-}
-
-.parralaxItem > img {
-  position: absolute;
-  min-width: 100%;
-  min-height: 100%;
-  left: 0;
-  bottom: 0;
-  transition: transform 900ms ease-in-out;
-}
-
-.parallaxFocus {
-  transform: translateX(0);
-}
-
-/* .parallaxBefore {
-  transform: translateX(-100vw);
-} */
-
-.parallaxNext {
-  transform: translateX(100vw);
-}
-
-.parallaxLast {
-  transform: translateX(200vw);
-}
-
-.parallaxFocus > img {
-  transform: translateX(0);
-}
-
-.parallaxBefore > img {
-  transform: translateX(-10%);
-}
-
-.parallaxNext > img {
-  transform: translateX(10%);
-}
-
 /* Main Screen */ /*   #region   */
 #mainScreen {
-  background-color: var(--gold);
-}
-
-.contentTable {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-around;
-  position: absolute;
-  right: 2em;
-  top: 25%;
-  height: 12em;
-  font-size: 24px;
-  z-index: 150;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .animatedHeader {
@@ -434,15 +415,71 @@ section {
 /*   #endregion   */
 
 /* About Screen */ /*   #region   */
-.aboutInfoContainer {
+.aboutContainer {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60%;
-  background-color: var(--white);
+  width: 100%;
+  height: 100%;
   font-size: 2em;
   line-height: 1.5em;
 }
+
+.aboutContainer > p {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  padding: 2em;
+  background-color: var(--shadowDark);
+  color: var(--white);
+  z-index: 50;
+}
+
+#parallax0 > img {
+  position: absolute;
+  top: 20%;
+  bottom: unset;
+  left: unset;
+  right: 20%;
+  max-width: 50vw;
+  height: auto;
+  min-width: 0;
+  min-height: 0;
+}
+
+#parallax0 {
+  background-color: var(--grey);
+}
+
+@media screen and (max-width: 750px) {
+  .aboutContainer > p {
+    position: absolute;
+    top: unset;
+    bottom: 0;
+    width: 100%;
+    height: 40%;
+    padding: 0.5em 0;
+    background-color: var(--shadowDark);
+    color: var(--white);
+    z-index: 50;
+    font-size: 0.65em;
+    line-height: 1.1em;
+  }
+
+  #parallax0 > img {
+    position: absolute;
+    top: 10%;
+    max-width: 100vw;
+    height: auto;
+  }
+}
+
+/*   #endregion   */
+
+/* Develope Screen */ /*   #region   */
 
 .developeInfoContainer {
   display: flex;
@@ -513,36 +550,24 @@ section {
 }
 
 @media screen and (max-width: 750px) {
-  #aboutScreen > div {
-    width: 100%;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0 1em;
+  .aboutInfoContainer {
+    top: 40%;
+    font-size: 1rem;
   }
 
-  .polaroidFrame {
-    width: 175px;
-    height: 210px;
-    margin-bottom: 2em;
+  .developeInfoContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    width: 80%;
+    height: 70%;
   }
 
-  .polaroidFrame > div {
-    width: 156.15px;
-    height: 150px;
-  }
-
-  .polaroidFrame > h3 {
-    display: none;
-  }
-
-  .containerHalf {
-    width: 100%;
-  }
-
-  .containerHalf h4 {
-    font-size: 16px;
-    line-height: 1em;
+  .devTile {
+    width: 100px;
+    height: 100px;
+    margin: 0.1em;
   }
 }
 
