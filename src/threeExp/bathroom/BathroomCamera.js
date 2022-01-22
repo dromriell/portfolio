@@ -87,7 +87,7 @@ export default class BathroomCamera {
 
   handleMotion(event) {
     const motionX = event.gamma / 90;
-    const deltaX = motionX * 0.63425 - 1.9272;
+    const deltaX = motionX * 0.63425 + 1.9272;
     this.position.x = deltaX;
     this.instance.position.lerp(this.position, 0.1);
   }
