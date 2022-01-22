@@ -7,6 +7,7 @@ export default class ParallaxItem {
     this.img.src = imgSrc;
 
     this.element.classList.add("parralaxItem");
+    this.element.setAttribute("id", `parallax${index}`);
     //  this.element.style.backgroundImage = `url(${this.img})`;
     this.element.style.zIndex = index + 1;
     this.element.appendChild(this.img);
