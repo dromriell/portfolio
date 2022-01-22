@@ -14,7 +14,11 @@ export default class TilesCamera {
     }
 
     // Setup
-    this.position = new THREE.Vector3(-1.2685, 1.4356, 1.3127);
+    if (this.sizes.width < 1000) {
+      this.position = new THREE.Vector3(-3.038, 4.4456, -1.513);
+    } else {
+      this.position = new THREE.Vector3(-1.2685, 1.4356, 1.3127);
+    }
 
     // Events
     document.addEventListener("mousemove", (event) =>
@@ -68,6 +72,12 @@ export default class TilesCamera {
   resize() {
     this.instance.aspect = this.sizes.width / this.sizes.height;
     this.instance.updateProjectionMatrix();
+    if (this.sizes.width < 1000) {
+      this.position = new THREE.Vector3(-3.038, 4.4456, -1.513);
+    } else {
+      this.position = new THREE.Vector3(-1.2685, 1.4356, 1.3127);
+    }
+    this.instance.position.lerp(this.position, 0.1);
   }
 
   update() {
