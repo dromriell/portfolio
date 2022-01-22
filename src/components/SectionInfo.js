@@ -19,7 +19,7 @@ export class SectionInfo {
 export class AboutInfo extends SectionInfo {
   constructor(data) {
     super(data);
-    this.containerClass = "aboutInfoContainer";
+    this.containerClass = "aboutContainer";
 
     this.setClasses();
   }
