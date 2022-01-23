@@ -306,6 +306,7 @@ section {
   height: 2em;
   line-height: 2em;
 }
+
 .animatedHeader span {
   height: 100%;
   margin: auto 0;
@@ -409,6 +410,11 @@ section {
 
   .projectContainer {
     padding: 0;
+  }
+
+  .xScreenHeader {
+    right: unset;
+    top: -1.5em;
   }
 }
 
@@ -688,6 +694,24 @@ section {
 /*   #endregion   */
 
 /* NAV MENU */ /*   #region   */
+.menuButton {
+  color: var(--black);
+  padding: 5px 20px;
+  font-size: 34px;
+  transition: box-shadow 200ms;
+}
+
+.menuButton.focused {
+  color: var(--gold);
+  box-shadow: 0 -4px 4px 0 var(--shadowLight),
+    inset 0 4px 4px 0 var(--shadowLight);
+}
+
+.menuButton:active {
+  box-shadow: 0 -4px 4px 0 var(--shadowLight),
+    inset 0 4px 4px 0 var(--shadowLight);
+}
+
 #headerBar {
   display: flex;
   position: fixed;
@@ -705,21 +729,26 @@ section {
 }
 
 #headerBar > h1 {
+  display: block;
   font-family: "VT323", monospace;
   font-size: 34px;
-  color: var(--grey);
+  color: var(--white);
   margin: 0 1em;
 }
 
-#headerBar h4 {
+.headerMenu h4 {
   font-family: "VT323", monospace;
   font-size: 18px;
-  color: var(--grey);
+  font-weight: 400;
+  color: var(--white);
 }
 
-#headerBar ul {
+#headerBar ul:not(.mobileMenu) {
   list-style: none;
   display: flex;
+}
+
+.headerMenu {
   flex: 1;
 }
 
@@ -728,6 +757,85 @@ section {
 }
 #headerBar ul:nth-child(2) {
   justify-content: flex-start;
+}
+
+.mobileToggleBtn {
+  display: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mobileMenu {
+  display: none;
+}
+
+.mobileMenu > li {
+  display: none;
+  position: relative;
+  width: 50%;
+  padding: 1em;
+  font-family: "VT323", monospace;
+  font-size: 0.75em;
+  font-weight: 400;
+  color: var(--white);
+  border-bottom: 1px solid var(--grey);
+}
+
+@media screen and (max-width: 750px) {
+  #headerBar > h1 {
+    display: none;
+  }
+
+  #headerBar > ul:not(.mobileMenu) {
+    display: none;
+  }
+
+  .mobileToggleBtn {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1em;
+    background: rgba(0, 0, 0, 0);
+    font-size: 0.15em;
+    z-index: 70;
+  }
+
+  .mobileMenu {
+    transform: translateX(-120vw);
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    flex-direction: column;
+    height: 100vh;
+    width: 75%;
+    transition: transform 500ms ease-in-out;
+  }
+
+  .mobileMenu.menuShow {
+    transform: translateX(0);
+  }
+
+  .mobileMenu > li {
+    display: flex;
+  }
+
+  .menuOverlay {
+    transform: translateX(-120vw);
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: var(--shadowDark);
+    z-index: 50;
+    transition: transform 500ms ease-in-out;
+  }
+
+  .menuOverlay.overlayShow {
+    transform: translateX(-0);
+  }
 }
 
 /* Overlays */
@@ -766,25 +874,6 @@ section {
 .showVHSOverlay {
   opacity: 0.25;
   display: flex;
-}
-
-.menuButton {
-  color: var(--black);
-  padding: 5px 20px;
-  font-size: 34px;
-  transition: box-shadow 200ms;
-}
-
-.menuButton.focused {
-  color: var(--gold);
-  box-shadow: 0 -4px 4px 0 var(--shadowLight),
-    inset 0 4px 4px 0 var(--shadowLight);
-}
-
-.menuButton:active {
-  box-shadow: 0 -4px 4px 0 var(--shadowLight),
-    inset 0 4px 4px 0 var(--shadowLight);
-  padding-top: 6px;
 }
 
 /*   #endregion   */
