@@ -12,23 +12,66 @@ export default class HeaderBar {
     this.menuLeft = document.createElement("ul");
     this.menuRight = document.createElement("ul");
 
-    this.container.setAttribute("id", "headerBar");
+    this.mobileMenuToggle = document.createElement("button");
+    this.mobileMenu = document.createElement("ul");
+    this.menuOverlay = document.createElement("div");
+    this.isMobileMenuOpen = false;
+
+    this.buttonElements = {
+      header: [],
+      mobile: [],
+    };
+
+    this.setAttributes();
 
     this.createHeaderBar();
     if (shouldSetButtons) {
       this.setHeaderBarButtons();
     }
+
+    window.addEventListener("scrollEvent", (e) => {
+      console.log(e);
+      this.highlightCurrentScreen();
+    });
+  }
+
+  /**
+   * Set the element classes and IDs
+   */
+  setAttributes() {
+    this.container.setAttribute("id", "headerBar");
+    this.menuLeft.classList.add("headerMenu");
+    this.menuRight.classList.add("headerMenu");
+
+    this.mobileMenu.classList.add("mobileMenu");
+    this.mobileMenuToggle.classList.add("mobileToggleBtn");
+    this.mobileMenuToggle.innerHTML = `
+      <svg viewBox="0 0 100 80" width="40" height="40" fill = "#9a8049">
+        <rect width="100" height="20"></rect>
+        <rect y="30" width="100" height="20"></rect>
+        <rect y="60" width="100" height="20"></rect>
+      </svg>`;
+
+    this.mobileMenuToggle.addEventListener("click", () => {
+      this.toggleMobileMenu();
+    });
+    this.menuOverlay.classList.add("menuOverlay");
   }
 
   /**
    * Creates the header bar element and inserts it into the document
    */
   createHeaderBar() {
+    const docBody = document.querySelector("body");
     this.marker.innerText = "-- : --";
     this.container.appendChild(this.menuLeft);
     this.container.appendChild(this.marker);
     this.container.appendChild(this.menuRight);
-    document.querySelector("body").appendChild(this.container);
+    this.container.appendChild(this.mobileMenu);
+    this.container.appendChild(this.mobileMenuToggle);
+
+    docBody.appendChild(this.container);
+    docBody.appendChild(this.menuOverlay);
   }
 
   /**
@@ -51,15 +94,25 @@ export default class HeaderBar {
         .replace(/&/g, "");
       sectionButton.appendChild(sectionTitle);
 
+      const mobileButton = sectionButton.cloneNode(true);
+
       sectionButton.addEventListener("click", () =>
         this.scrollManager.handleDirectScroll(sectionIndex)
       );
+      mobileButton.addEventListener("click", () => {
+        this.scrollManager.handleDirectScroll(sectionIndex);
+        this.toggleMobileMenu();
+      });
 
       if (i < 3) {
         this.menuLeft.appendChild(sectionButton);
       } else {
         this.menuRight.appendChild(sectionButton);
       }
+      this.mobileMenu.appendChild(mobileButton);
+
+      this.buttonElements.header.push(sectionButton);
+      this.buttonElements.mobile.push(mobileButton);
     }
   }
 
@@ -76,5 +129,32 @@ export default class HeaderBar {
       : 1;
     const display = `0${this.scrollManager.currentScreenIndex} : 0${subSectionDisplay}`;
     this.marker.innerText = display;
+  }
+
+  /**
+   * Toggle the mobile menu state and overlay.
+   */
+  toggleMobileMenu() {
+    console.log(this.isMobileMenuOpen);
+    if (this.isMobileMenuOpen) {
+      this.menuOverlay.classList.remove("overlayShow");
+      this.mobileMenu.classList.remove("menuShow");
+    } else {
+      this.menuOverlay.classList.add("overlayShow");
+      this.mobileMenu.classList.add("menuShow");
+    }
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  /**
+   * Highlight the current screens buttons
+   */
+  highlightCurrentScreen() {
+    const headerButton =
+      this.buttonElements.header[this.scrollManager.currentScreenIndex];
+    const mobileButton =
+      this.buttonElements.mobile[this.scrollManager.currentScreenIndex];
+
+    console.log(mobileButton);
   }
 }
