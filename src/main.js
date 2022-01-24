@@ -14,6 +14,7 @@ import ParallaxItem from "./scrollManager/ParallaxItem";
 import ParallaxManager from "./scrollManager/ParallaxManager";
 import { AboutInfo, DevelopeInfo } from "./components/SectionInfo";
 import { worksData } from "./testData";
+import TextCarousel from "./components/TextCarousel";
 
 /**
  * 3D Scenes
@@ -97,6 +98,28 @@ const renderScrollXChildren = () => {
   headerBar.setHeaderBarButtons(); // Update header bar to add new section buttons
 };
 renderScrollXChildren();
+
+/**
+ * Contact Header Animation
+ */
+const contactHeaderElement = document.querySelector(".contactHeader>h3");
+const testWords = [
+  "THE WEATHER",
+  "THINGS",
+  "THREEJS",
+  "PYTHON",
+  "JAVASCRIPT",
+  "REACT",
+  "REACT NATIVE",
+  "DATA",
+  "JSON",
+  "CSS",
+  "FOOTBALL",
+  "DISC GOLF",
+  "TILE",
+  "COMPONENTS",
+];
+const textCarousel = new TextCarousel(testWords, contactHeaderElement);
 
 /**
  * Observers
