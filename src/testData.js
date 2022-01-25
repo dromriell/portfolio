@@ -1,4 +1,4 @@
-import aboutPicURL from "../static/aboutPic2.png";
+import aboutPicURL from "../static/aboutPic3.png";
 
 /**
  * Test Data
