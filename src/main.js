@@ -16,6 +16,17 @@ import { AboutInfo, DevelopeInfo } from "./components/SectionInfo";
 import { worksData } from "./testData";
 import TextCarousel from "./components/TextCarousel";
 
+import { fetchScreenData } from "./utils/apiActions";
+import { staticUrls } from "./utils/urls";
+import { setViewHeight } from "./utils/setViewHeight";
+import StatusBadge from "./components/StatusBadge";
+import NoteForm from "./components/NoteForm";
+
+/**
+ * Set screen height
+ */
+setViewHeight();
+
 /**
  * 3D Scenes
  */
@@ -47,16 +58,21 @@ scrollManager.onScrollEnd = () => {
 };
 
 /**
- * Horizontal Scroll Sections
+ * Scroll Sections
  */
-const renderScrollXChildren = () => {
+
+const renderScrollSections = async () => {
   // Renders data into a nodeList of individual xScroll screens
   // which is then inserted into the parent instance and element.
   // Auto formats based on the data received.
-
   const scrollXSection = scrollManager.getSectionByID("mainScreen");
-
-  for (const [index, data] of worksData.entries()) {
+  let screenData;
+  try {
+    screenData = await fetchScreenData();
+  } catch (error) {
+    window.alert(error);
+  }
+  worksData.forEach((data, index) => {
     // Init related components
     const sectionElement = new XScrollScreen(index, data);
     sectionElement.setAttribute(
@@ -69,12 +85,13 @@ const renderScrollXChildren = () => {
     const parallaxItem = new ParallaxItem(sectionElement.img, index);
 
     if (data.name === "About") {
+      parallaxItem.img.src = staticUrls.aboutPic;
       const aboutInfo = new AboutInfo(data);
       sectionElement.nodes.displayDiv.appendChild(aboutInfo.element);
     } else if (data.name === "Develope") {
       const developeInfo = new DevelopeInfo(data);
       sectionElement.nodes.displayDiv.appendChild(developeInfo.element);
-    } else if (data.name === "& Design") {
+    } else if (data.name === "Design") {
       sectionElement.nodes.displayDiv.appendChild(designCanvas);
     }
 
@@ -90,14 +107,14 @@ const renderScrollXChildren = () => {
     sectionHeader.appendToTarget(sectionElement.nodes.header);
     parallaxManager.children.push(parallaxItem);
     scrollXSection.children.push(sectionElement);
-  }
+  });
 
   parallaxManager.setBackground();
   scrollXSection.updateChildren();
   scrollXSection.onScroll = (index) => parallaxManager.setIndex(index);
   headerBar.setHeaderBarButtons(); // Update header bar to add new section buttons
 };
-renderScrollXChildren();
+renderScrollSections();
 
 /**
  * Contact Header Animation
@@ -122,6 +139,11 @@ const testWords = [
 const textCarousel = new TextCarousel(testWords, contactHeaderElement);
 
 /**
+ * Update Badge
+ */
+const badge = new StatusBadge("Update");
+
+/**
  * Observers
  */
 const homeObserver = new IntersectionObserver((entries) => {
@@ -140,6 +162,20 @@ const homeObserver = new IntersectionObserver((entries) => {
 });
 
 homeObserver.observe(document.querySelector("#homeScreen"));
+
+/**
+ * Form
+ */
+const form = document.querySelector("#contactForm");
+const notesForm = new NoteForm(form);
+notesForm.onPostSuccess = () => {
+  badge.setMessage(`Thanks for the message!`);
+  badge.alert();
+};
+notesForm.onPostError = (error) => {
+  badge.setMessage(error);
+  badge.alert(true);
+};
 
 /**
  * Event Listeners
