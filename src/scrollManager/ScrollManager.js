@@ -33,9 +33,6 @@ export default class ScrollManager {
       },
     });
 
-    this.onScroll = () => {};
-    this.onScrollEnd = () => {};
-
     this.setScrollOrder();
 
     // Handlers
@@ -198,7 +195,8 @@ export default class ScrollManager {
       targetSection.setXScrollOrderClasses(childIndex);
       targetSection.currentIndex = childIndex;
     }
-    this.onScroll(); // Callback function for this section
+
+    this.onScrollEnd(); // Callback function for this section
     this.handleScrollTimeout();
   }
 
@@ -236,7 +234,6 @@ export default class ScrollManager {
   handleWheelEvent(e) {
     e.stopPropagation();
     e.preventDefault();
-    // if (this.isScrolling || this.menu.state.isOpen) {
     if (this.isScrolling) {
       return;
     }
@@ -285,7 +282,7 @@ export default class ScrollManager {
     if (
       e.keyCode > 31 &&
       e.keyCode < 41 &&
-      document.querySelectorAll("input:focus").length === 0 //Skip if user is focused on input
+      document.querySelectorAll("input:focus, textarea:focus").length === 0 //Skip if user is focused on input
     ) {
       e.stopPropagation();
       e.preventDefault();
@@ -301,4 +298,7 @@ export default class ScrollManager {
   getSectionByID(id) {
     return this.scrollOrderArray.find((element) => element.id === id);
   }
+
+  onScroll() {}
+  onScrollEnd() {}
 }
