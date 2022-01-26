@@ -34,9 +34,10 @@
         id="mainScreen"
         class="scrollSectionY scrollSectionX scrollMargin"
       ></section>
+      <section class="sectionBreak"></section>
       <section
         id="contactScreen"
-        class="scrollSectionY scrollMargin"
+        class="scrollSectionY"
         name="Contact"
         data-btn="2.0"
       >
@@ -107,25 +108,27 @@
             <div class="formControl textField">
               <label for="name">NAME:</label>
               <div class="inputContainer">
-                <input type="text" />
+                <input type="text" name="name" required />
               </div>
             </div>
             <div class="formControl textField">
               <label for="name">EMAIL:</label>
               <div class="inputContainer">
-                <input type="text" />
+                <input type="text" name="email" required />
               </div>
             </div>
             <div class="formControl textArea">
               <label for="name">MESSAGE:</label>
               <div class="inputContainer">
-                <textarea cols="4"></textarea>
+                <textarea cols="4" name="note" required></textarea>
               </div>
             </div>
             <div class="formButtonGroup">
-              <div id="formSubmitBtn" class="button menuButton">
-                <h4>Submit</h4>
-              </div>
+              <button type="submit">
+                <div id="formSubmitBtn" class="button menuButton">
+                  <h4>Submit</h4>
+                </div>
+              </button>
             </div>
           </form>
         </div>
