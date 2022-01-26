@@ -10,7 +10,7 @@ export default class XScrollScreen {
     this.data = data;
     this.name = data.name;
     this.desc = data.desc;
-    this.img = data.img;
+    this.img = data.img_source;
 
     this.setNodes();
     this.setClasses();

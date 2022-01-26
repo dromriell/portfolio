@@ -66,7 +66,7 @@ export class DevelopeInfo {
 
       appHeaderClone.innerText = app.name;
       appDetailsClone.innerText = app.desc;
-      appImgClone.src = app.img;
+      appImgClone.src = app.img_src;
 
       appDetailContainerClone.appendChild(appDetailsClone);
       appContainerClone.appendChild(appHeaderClone);
