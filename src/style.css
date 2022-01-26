@@ -29,6 +29,7 @@ canvas {
   --darkBlue: #33658a;
   --gold: #9a8049;
   --screenTan: #cdcea5;
+  --green: #7cae7a;
 
   --buttonHoverTransition: transform 500ms;
 }
@@ -145,7 +146,7 @@ section {
 
 .sectionBreak {
   height: 25vh;
-  background-color: var(--white);
+  background-color: var(--black);
 }
 
 .parallaxContainer {
@@ -154,7 +155,8 @@ section {
   display: flex;
   flex-direction: row;
   width: 300%;
-  height: 100%;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 }
 
 .parralaxItem {
@@ -959,6 +961,41 @@ section {
 .showVHSOverlay {
   opacity: 0.25;
   display: flex;
+}
+
+/*   #endregion   */
+
+/* Status Badge */ /*   #region   */
+
+.statusBadge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -120%);
+  background: var(--green);
+  width: 50%;
+  height: 2em;
+  color: var(--white);
+  z-index: 1000;
+  border-radius: 0 0 15px 15px;
+  transition: transform 400ms ease-in-out;
+}
+
+.statusBadge.badgeShow {
+  transform: translate(-50%, 0%);
+}
+
+.statusBadge.badgeWarning {
+  background: red;
+}
+
+@media screen and (max-width: 750px) {
+  .statusBadge {
+    width: 75%;
+  }
 }
 
 /*   #endregion   */
