@@ -28,11 +28,6 @@ export default class HeaderBar {
     if (shouldSetButtons) {
       this.setHeaderBarButtons();
     }
-
-    window.addEventListener("scrollEvent", (e) => {
-      console.log(e);
-      this.highlightCurrentScreen();
-    });
   }
 
   /**
@@ -96,9 +91,9 @@ export default class HeaderBar {
 
       const mobileButton = sectionButton.cloneNode(true);
 
-      sectionButton.addEventListener("click", () =>
-        this.scrollManager.handleDirectScroll(sectionIndex)
-      );
+      sectionButton.addEventListener("click", () => {
+        this.scrollManager.handleDirectScroll(sectionIndex);
+      });
       mobileButton.addEventListener("click", () => {
         this.scrollManager.handleDirectScroll(sectionIndex);
         this.toggleMobileMenu();
@@ -135,7 +130,6 @@ export default class HeaderBar {
    * Toggle the mobile menu state and overlay.
    */
   toggleMobileMenu() {
-    console.log(this.isMobileMenuOpen);
     if (this.isMobileMenuOpen) {
       this.menuOverlay.classList.remove("overlayShow");
       this.mobileMenu.classList.remove("menuShow");
@@ -154,7 +148,5 @@ export default class HeaderBar {
       this.buttonElements.header[this.scrollManager.currentScreenIndex];
     const mobileButton =
       this.buttonElements.mobile[this.scrollManager.currentScreenIndex];
-
-    console.log(mobileButton);
   }
 }
