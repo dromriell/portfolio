@@ -63,6 +63,7 @@ export class DevelopeInfo {
       const appDetailsClone = appDetails.cloneNode(false);
       const appHeaderClone = appHeader.cloneNode(false);
       const appImgClone = appImg.cloneNode(false);
+      appImgClone.classList.add("cover");
 
       appHeaderClone.innerText = app.name;
       appDetailsClone.innerText = app.desc;
