@@ -325,7 +325,7 @@ section {
 }
 
 .animatedHeader {
-  color: black;
+  color: rgba(0, 0, 0, 0);
   height: 2em;
   line-height: 2em;
 }
@@ -480,7 +480,7 @@ section {
 }
 
 #parallax0 {
-  background-color: #8b6055;
+  background-color: var(--blue);
 }
 
 @media screen and (max-width: 750px) {
