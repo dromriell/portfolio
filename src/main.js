@@ -1,5 +1,5 @@
-import ScrollManager from "./scrollManager/ScrollManager";
 import "./style.css";
+import ScrollManager from "./scrollManager/ScrollManager";
 import Experience from "./threeExp/Experience";
 import TilesWorld from "./threeExp/landingScreen/TilesWorld";
 import TilesCamera from "./threeExp/landingScreen/TilesCamera";
@@ -71,8 +71,9 @@ const renderScrollSections = async () => {
     screenData = await fetchScreenData();
   } catch (error) {
     window.alert(error);
+    return;
   }
-  worksData.forEach((data, index) => {
+  screenData.forEach((data, index) => {
     // Init related components
     const sectionElement = new XScrollScreen(index, data);
     sectionElement.setAttribute(
@@ -182,6 +183,7 @@ notesForm.onPostError = (error) => {
  */
 window.addEventListener("resize", () => {
   scrollManager.handleDirectScroll(scrollManager.currentScreenIndex);
+  setViewHeight();
 });
 
 window.addEventListener("DOMContentLoaded", () => {
