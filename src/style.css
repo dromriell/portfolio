@@ -52,7 +52,7 @@ span {
 body {
   height: 100%;
   overflow-x: hidden;
-  background-color: var(--white);
+  background-color: var(--black);
 }
 
 main {
@@ -145,8 +145,9 @@ section {
 }
 
 .sectionBreak {
-  height: 25vh;
+  height: calc(var(--vh, 1vh) * 25);
   background-color: var(--black);
+  padding: 1em 0;
 }
 
 .parallaxContainer {
@@ -175,9 +176,16 @@ section {
   position: absolute;
   min-width: 100%;
   min-height: 100%;
+  max-width: 100vw;
+  max-height: 100vh;
   left: 0;
   bottom: 0;
   transition: transform 900ms ease-in-out;
+}
+
+.parralaxItem > img.cover {
+  width: 100vw;
+  height: calc(var(--vh, 1vh) * 100);
 }
 
 .parallaxFocus {
@@ -214,7 +222,6 @@ section {
   height: 100%;
   width: 100px;
   padding: 2em;
-  transition: all 400ms ease-in-out;
 }
 
 #homeScreen h1 {
@@ -271,7 +278,7 @@ section {
   padding-left: 2vw;
 }
 
-@media screen and (max-width: 1050px) {
+@media screen and (max-width: 1500px) {
   #homeScreen > div {
     padding: 0.5em;
   }
@@ -292,6 +299,20 @@ section {
 
   #homeScreen h3 {
     font-size: 18px;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  #homeScreen h1 {
+    width: 100%;
+    text-align: left;
+    font-size: 3em;
+    padding: 0;
+  }
+
+  #homeScreen h3 {
+    font-size: 1em;
     padding: 0;
   }
 }
@@ -604,8 +625,8 @@ section {
   flex: 1;
   align-items: flex-start;
   width: 100%;
-  height: 100%;
   overflow: hidden;
+  padding-left: 1em;
 }
 
 .contactHeader > h2,
@@ -720,7 +741,7 @@ section {
 @media screen and (max-width: 750px) {
   #contactScreen {
     flex-direction: column;
-    padding-top: 3em;
+    padding-top: 1em;
   }
 
   #contactScreen > div {
@@ -734,10 +755,6 @@ section {
     flex-wrap: wrap;
     flex-direction: row !important;
     margin-top: 2em !important;
-    margin-bottom: -5em;
-    width: 100%;
-    max-height: 30vh;
-    padding: 0;
   }
 
   .contactHeader > h2,
@@ -748,22 +765,24 @@ section {
 
   .contactHeader > h2 {
     white-space: nowrap;
-    width: 50%;
   }
 
   .contactHeader > h3 {
-    margin-top: -2em;
+    width: 100%;
   }
 
   .contactLinks {
     flex-direction: row !important;
     justify-content: space-around;
+    align-items: center;
     width: 100%;
-    height: 2em;
+    height: 4em;
+    border: none;
+    margin-top: 0 !important;
   }
 
   .contactLinks svg {
-    width: 2em;
+    width: 4em;
     color: var(--white);
     margin-bottom: 0;
     cursor: pointer;
@@ -771,10 +790,34 @@ section {
 
   .contactForm {
     flex: unset;
+    margin: 1em 0 !important;
+  }
+
+  .inputContainer > input,
+  .inputContainer > textarea {
+    background-color: var(--black);
+    border: 2px solid var(--white);
+    font-size: 21px;
+    padding: 0.25em;
+    width: 100%;
+  }
+
+  .inputContainer > input:focus {
+    border: 2px solid var(--gold);
+    outline: var(--gold);
+  }
+
+  .inputContainer > textarea:focus {
+    border: 2px solid var(--gold);
+    outline: var(--gold);
   }
 
   .inputContainer > textarea {
     height: 4em;
+  }
+
+  .formControl > label {
+    font-size: 1.5em;
   }
 }
 
