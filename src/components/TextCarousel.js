@@ -13,6 +13,7 @@ export default class TextCarousel {
     this.element = targetElement;
     this.options = options;
     this.currentIndex = undefined;
+    this.targetIndex = 0;
 
     this.setElements();
     this.setAnimation();
@@ -23,6 +24,11 @@ export default class TextCarousel {
   }
 
   setAnimation() {
+    this.targetIndex = Math.floor(Math.random() * this.words.length);
+    if (this.targetIndex === this.currentIndex) {
+      this.setAnimation();
+      return;
+    }
     this.clearPreviousWord();
     setTimeout(() => {
       this.setAnimation();
@@ -51,12 +57,8 @@ export default class TextCarousel {
   }
 
   setNextWord() {
-    const targetIndex = Math.floor(Math.random() * this.words.length);
-    if (targetIndex === this.currentIndex) {
-      this.setNextWord();
-    }
-    this.currentIndex = targetIndex;
-    const targetWord = this.words[targetIndex];
+    this.currentIndex = this.targetIndex;
+    const targetWord = this.words[this.targetIndex];
     const targetLetters = targetWord.split("");
     const span = document.createElement("span");
     targetLetters.forEach((letter, index) => {
