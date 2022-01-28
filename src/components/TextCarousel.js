@@ -12,6 +12,7 @@ export default class TextCarousel {
     this.words = words;
     this.element = targetElement;
     this.options = options;
+    this.currentIndex = undefined;
 
     this.setElements();
     this.setAnimation();
@@ -51,6 +52,10 @@ export default class TextCarousel {
 
   setNextWord() {
     const targetIndex = Math.floor(Math.random() * this.words.length);
+    if (targetIndex === this.currentIndex) {
+      this.setNextWord();
+    }
+    this.currentIndex = targetIndex;
     const targetWord = this.words[targetIndex];
     const targetLetters = targetWord.split("");
     const span = document.createElement("span");
