@@ -481,7 +481,7 @@ section {
 }
 
 #parallax0 {
-  background-color: var(--blue);
+  background-color: #b2a3b5;
 }
 
 @media screen and (max-width: 750px) {
