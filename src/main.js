@@ -13,7 +13,6 @@ import XScrollScreen from "./scrollManager/XScrollScreen";
 import ParallaxItem from "./scrollManager/ParallaxItem";
 import ParallaxManager from "./scrollManager/ParallaxManager";
 import { AboutInfo, DevelopeInfo } from "./components/SectionInfo";
-import { worksData } from "./testData";
 import TextCarousel from "./components/TextCarousel";
 
 import { fetchScreenData } from "./utils/apiActions";
@@ -90,6 +89,7 @@ const renderScrollSections = async () => {
       const aboutInfo = new AboutInfo(data);
       sectionElement.nodes.displayDiv.appendChild(aboutInfo.element);
     } else if (data.name === "Develope") {
+      parallaxItem.img.src = staticUrls.developePic;
       const developeInfo = new DevelopeInfo(data);
       sectionElement.nodes.displayDiv.appendChild(developeInfo.element);
     } else if (data.name === "Design") {
