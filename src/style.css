@@ -582,6 +582,15 @@ section {
   background-color: var(--white);
 }
 
+#parallax1 > img {
+  position: absolute;
+  left: unset;
+  right: 0;
+  height: auto;
+  min-width: 0;
+  min-height: 0;
+}
+
 @media screen and (max-width: 750px) {
   .aboutInfoContainer {
     top: 40%;
