@@ -1,3 +1,5 @@
+import { staticUrls } from "../utils/urls";
+
 /**
  * Element displayed at top of page that displays section and menu toggle button.
  * @param {Object} scrollManager ScrollManager instance.
@@ -16,6 +18,8 @@ export default class HeaderBar {
     this.mobileMenu = document.createElement("ul");
     this.menuOverlay = document.createElement("div");
     this.isMobileMenuOpen = false;
+    this.vhsOverlay = document.querySelector(".vhsOverlay");
+    this.isVHSOverlayShowing = false;
 
     this.buttonElements = {
       header: [],
@@ -51,6 +55,8 @@ export default class HeaderBar {
       this.toggleMobileMenu();
     });
     this.menuOverlay.classList.add("menuOverlay");
+    this.vhsOverlay.style.background = `url(${staticUrls.vhsOverlay})`;
+    this.vhsOverlay.style.backgroundSize = "cover";
   }
 
   /**
@@ -92,6 +98,7 @@ export default class HeaderBar {
       const mobileButton = sectionButton.cloneNode(true);
 
       sectionButton.addEventListener("click", () => {
+        this.toggleScrollOverlay();
         this.scrollManager.handleDirectScroll(sectionIndex);
       });
       mobileButton.addEventListener("click", () => {
@@ -148,5 +155,15 @@ export default class HeaderBar {
       this.buttonElements.header[this.scrollManager.currentScreenIndex];
     const mobileButton =
       this.buttonElements.mobile[this.scrollManager.currentScreenIndex];
+  }
+
+  /**
+   * Toggle the VHS overlay
+   */
+  toggleScrollOverlay() {
+    this.vhsOverlay.classList.add("showVHSOverlay");
+    setTimeout(() => {
+      this.vhsOverlay.classList.remove("showVHSOverlay");
+    }, 500);
   }
 }
