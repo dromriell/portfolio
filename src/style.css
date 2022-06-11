@@ -979,6 +979,21 @@ section {
 }
 
 /* Overlays */
+.loadingOverlay.show {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #1e1e1e;
+  color: var(--white);
+  z-index: 9999;
+  overflow: hidden;
+}
+
 .overlay {
   position: fixed;
   top: 0;
