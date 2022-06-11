@@ -1,4 +1,3 @@
-import "./style.css";
 import ScrollManager from "./scrollManager/ScrollManager";
 import Experience from "./threeExp/Experience";
 import TilesWorld from "./threeExp/landingScreen/TilesWorld";
@@ -123,7 +122,6 @@ renderScrollSections();
 const contactHeaderElement = document.querySelector(".contactHeader>h3");
 const testWords = [
   "THE WEATHER",
-  "THINGS",
   "THREEJS",
   "PYTHON",
   "JAVASCRIPT",
@@ -181,11 +179,16 @@ notesForm.onPostError = (error) => {
 /**
  * Event Listeners
  */
+const handleHomeExperienceReady = (e) => {
+  if (e.detail.type === "tile") {
+    document.querySelector(".loadingOverlay").classList.remove("show");
+    document.removeEventListener("ready", handleHomeExperienceReady);
+  }
+};
+
 window.addEventListener("resize", () => {
   scrollManager.handleDirectScroll(scrollManager.currentScreenIndex);
   setViewHeight();
 });
 
-window.addEventListener("DOMContentLoaded", () => {
-  console.log("DOM LOADED");
-});
+document.addEventListener("ready", handleHomeExperienceReady);
