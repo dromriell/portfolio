@@ -1,3 +1,5 @@
+import AppTile from "./AppTile";
+
 export class SectionInfo {
   constructor(data) {
     this.data = data;
@@ -48,32 +50,9 @@ export class DevelopeInfo {
   }
 
   createChildren() {
-    const appContainer = document.createElement("div");
-    const appHeader = document.createElement("h3");
-    const appImg = document.createElement("img");
-    const appDetailContainer = document.createElement("div");
-    const appDetails = document.createElement("p");
-
-    appContainer.classList.add("devTile");
-    appDetailContainer.classList.add("devDetails");
-
     this.apps.forEach((app) => {
-      const appContainerClone = appContainer.cloneNode(false);
-      const appDetailContainerClone = appDetailContainer.cloneNode(false);
-      const appDetailsClone = appDetails.cloneNode(false);
-      const appHeaderClone = appHeader.cloneNode(false);
-      const appImgClone = appImg.cloneNode(false);
-      appImgClone.classList.add("cover");
-
-      appHeaderClone.innerText = app.name;
-      appDetailsClone.innerText = app.desc;
-      appImgClone.src = app.img_src;
-
-      appDetailContainerClone.appendChild(appDetailsClone);
-      appContainerClone.appendChild(appHeaderClone);
-      appContainerClone.appendChild(appImgClone);
-      appContainerClone.appendChild(appDetailContainerClone);
-      this.element.appendChild(appContainerClone);
+      const projectApp = new AppTile(app);
+      this.element.appendChild(projectApp.getElement());
     });
   }
 }
