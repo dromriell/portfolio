@@ -255,7 +255,7 @@ export default class ScrollManager {
     } else if (e.type === "touchend" && this.touchStart) {
       const touchEnd = e.changedTouches[0].screenY;
       const deltaY = this.touchStart - touchEnd;
-      if (deltaY < -20 || deltaY > 20) {
+      if (deltaY < -10 || deltaY > 10) {
         this.executeScroll(deltaY);
       }
       this.touchStart = null;
