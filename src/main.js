@@ -81,7 +81,7 @@ const renderScrollSections = async () => {
     const sectionHeader = new AnimatedHeader(sectionElement.name, {
       allCaps: true,
     });
-    const parallaxItem = new ParallaxItem(sectionElement.img, index);
+    const parallaxItem = new ParallaxItem(data, index);
 
     if (data.name === "About") {
       parallaxItem.img.src = staticUrls.aboutPic;
