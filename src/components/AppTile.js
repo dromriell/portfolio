@@ -13,13 +13,35 @@ export default class AppTile {
     this.appImg.classList.add("cover");
 
     this.appHeader.innerText = this.project.name;
-    this.appDetails.innerText = this.project.desc;
+    this.appDetails.innerText = this.project.description;
     this.appImg.src = this.project.img_src;
 
     this.appDetailContainer.appendChild(this.appDetails);
     this.appContainer.appendChild(this.appHeader);
     this.appContainer.appendChild(this.appImg);
     this.appContainer.appendChild(this.appDetailContainer);
+
+    if (this.project.web_link) {
+      const webLink = document.createElement("a");
+      webLink.classList.add("devWebLink");
+      webLink.href = this.project.web_link;
+      webLink.target = "_blank";
+      webLink.innerText = "Link";
+      this.appDetailContainer.appendChild(webLink);
+    }
+
+    if (this.project.git_link) {
+      const gitLink = document.createElement("a");
+      gitLink.classList.add("devGitLink");
+      gitLink.href = this.project.git_link;
+      gitLink.target = "_blank";
+      gitLink.innerText = "Link";
+      this.appDetailContainer.appendChild(gitLink);
+    }
+
+    //  this.appContainer.addEventListener("mousedown", (e) =>
+    //    console.log(this.project.web_link)
+    //  );
   }
 
   getElement() {
