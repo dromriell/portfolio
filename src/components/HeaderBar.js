@@ -51,9 +51,14 @@ export default class HeaderBar {
         <rect y="60" width="100" height="20"></rect>
       </svg>`;
 
-    this.mobileMenuToggle.addEventListener("click", () => {
-      this.toggleMobileMenu();
+    ["touchstart", "click"].forEach((event) => {
+      this.mobileMenuToggle.addEventListener(
+        event,
+        () => this.toggleMobileMenu(),
+        false
+      );
     });
+
     this.menuOverlay.classList.add("menuOverlay");
     this.vhsOverlay.style.background = `url(${staticUrls.vhsOverlay})`;
     this.vhsOverlay.style.backgroundSize = "cover";
@@ -97,13 +102,15 @@ export default class HeaderBar {
 
       const mobileButton = sectionButton.cloneNode(true);
 
-      sectionButton.addEventListener("click", () => {
-        this.toggleScrollOverlay();
-        this.scrollManager.handleDirectScroll(sectionIndex);
-      });
-      mobileButton.addEventListener("click", () => {
-        this.scrollManager.handleDirectScroll(sectionIndex);
-        this.toggleMobileMenu();
+      ["touchstart", "click"].forEach((event) => {
+        sectionButton.addEventListener(event, () => {
+          this.toggleScrollOverlay();
+          this.scrollManager.handleDirectScroll(sectionIndex);
+        });
+        mobileButton.addEventListener(event, () => {
+          this.scrollManager.handleDirectScroll(sectionIndex);
+          this.toggleMobileMenu();
+        });
       });
 
       if (i < 3) {
