@@ -59,9 +59,9 @@ export default class AnimatedHeader {
     this.children.forEach((child, index) => {
       setTimeout(() => {
         if (isActive) {
-          this.#setActive(child);
+          this.setActive(child);
         } else {
-          this.#setIdle(child);
+          this.setIdle(child);
         }
       }, delay * index);
     });
@@ -71,11 +71,11 @@ export default class AnimatedHeader {
     parentElement.appendChild(this.element);
   }
 
-  #setActive(child) {
+  setActive(child) {
     child.classList.add(this.cssClasses.active);
   }
 
-  #setIdle(child) {
+  setIdle(child) {
     child.classList.remove(this.cssClasses.active);
   }
 }
