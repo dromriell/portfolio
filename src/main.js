@@ -1,3 +1,5 @@
+import smoothscroll from "smoothscroll-polyfill";
+
 import ScrollManager from "./scrollManager/ScrollManager";
 import Experience from "./threeExp/Experience";
 import TilesWorld from "./threeExp/landingScreen/TilesWorld";
@@ -177,18 +179,81 @@ notesForm.onPostError = (error) => {
 };
 
 /**
+ * Orientation Permission
+ */
+const orientationDialog = document.querySelector("#orientationDialog");
+const allowOrientationBTN = document.querySelector("#allowOrientationBTN");
+const denyOrientationBTN = document.querySelector("#denyOrientationBTN");
+
+const removeOrientationPermissionDialog = () => {
+  document.removeEventListener("touchend", handleOrientationPermissionToggle);
+  document.removeEventListener("touchend", handleOrientationPermissionDenied);
+  orientationDialog.remove();
+};
+
+const handleOrientationPermissionToggle = () => {
+  if (
+    typeof DeviceOrientationEvent !== "undefined" &&
+    typeof DeviceOrientationEvent.requestPermission === "function"
+  ) {
+    DeviceOrientationEvent.requestPermission()
+      .then((permissionState) => {
+        if (permissionState == "granted") {
+          alert("DeviceOrientationEvent Granted");
+          removeLoadingOverlay();
+        } else {
+          console.log("TEST TEST TEST");
+          alert("PERM Not Granted", permissionState);
+        }
+      })
+      .catch(console.error);
+  }
+  removeOrientationPermissionDialog();
+};
+
+const handleOrientationPermissionDenied = () => {
+  removeLoadingOverlay();
+  removeOrientationPermissionDialog();
+};
+
+allowOrientationBTN.addEventListener(
+  "touchend",
+  handleOrientationPermissionToggle
+);
+denyOrientationBTN.addEventListener(
+  "touchend",
+  handleOrientationPermissionDenied
+);
+
+/**
  * Event Listeners
  */
 const handleHomeExperienceReady = (e) => {
   if (e.detail.type === "tile") {
-    document.querySelector(".loadingOverlay").classList.remove("show");
-    document.removeEventListener("ready", handleHomeExperienceReady);
+    if (
+      typeof DeviceOrientationEvent !== "undefined" &&
+      typeof DeviceOrientationEvent.requestPermission === "function"
+    ) {
+      orientationDialog.classList.add("show");
+      return;
+    } else {
+      removeLoadingOverlay();
+    }
   }
+  document.removeEventListener("ready", handleHomeExperienceReady);
+};
+
+/**
+ * Loading Handling
+ */
+const removeLoadingOverlay = () => {
+  document.querySelector(".loadingOverlay").classList.remove("show");
 };
 
 window.addEventListener("resize", () => {
-  scrollManager.handleDirectScroll(scrollManager.currentScreenIndex);
   setViewHeight();
+  scrollManager.handleDirectScroll(scrollManager.currentScreenIndex);
 });
 
 document.addEventListener("ready", handleHomeExperienceReady);
+smoothscroll.polyfill();
