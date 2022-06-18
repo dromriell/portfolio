@@ -54,7 +54,9 @@ export default class HeaderBar {
     ["touchstart", "click"].forEach((event) => {
       this.mobileMenuToggle.addEventListener(
         event,
-        () => this.toggleMobileMenu(),
+        (e) => {
+          this.toggleMobileMenu();
+        },
         false
       );
     });
@@ -102,12 +104,13 @@ export default class HeaderBar {
 
       const mobileButton = sectionButton.cloneNode(true);
 
-      ["touchstart", "click"].forEach((event) => {
-        sectionButton.addEventListener(event, () => {
+      ["touchstart", "mouseup"].forEach((event) => {
+        sectionButton.addEventListener(event, (e) => {
           this.toggleScrollOverlay();
           this.scrollManager.handleDirectScroll(sectionIndex);
         });
-        mobileButton.addEventListener(event, () => {
+        mobileButton.addEventListener(event, (e) => {
+          e.preventDefault();
           this.scrollManager.handleDirectScroll(sectionIndex);
           this.toggleMobileMenu();
         });
