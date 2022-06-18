@@ -247,25 +247,28 @@ export default class ScrollManager {
    * This allows for touches on buttons and prevents unintended scrolling.
    */
   handleTouchEvent(e) {
-    e.preventDefault();
     if (this.isScrollLocked || this.isScrolling) {
       return;
-    } else if (e.type === "touchstart") {
-      this.touchStart = e.changedTouches[0].screenY;
-      return;
-    } else if (e.type === "touchend" && this.touchStart) {
+    }
+    e.preventDefault();
+
+    if (e.type === "touchend" && this.touchStart) {
       const touchEnd = e.changedTouches[0].screenY;
       const deltaY = this.touchStart - touchEnd;
-      if (deltaY < -30 || deltaY > 30) {
+      if (deltaY < -50 || deltaY > 50) {
         this.executeScroll(deltaY);
+        this.touchStart = null;
       }
-      this.touchStart = null;
     }
   }
 
   handleTouchMove(e) {
     e.preventDefault();
-    e.stopImmediatePropagation();
+    const touches = e.touches[0].screenY;
+    if (!this.touchStart) {
+      this.touchStart = touches;
+      return;
+    }
   }
 
   /**
