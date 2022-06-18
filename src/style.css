@@ -180,14 +180,19 @@ section {
   z-index: 0;
 }
 
+.parralaxItem > div.backgroundFilter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--shadowDark);
+  z-index: 5;
+}
+
 .parralaxItem > img {
-  /* position: absolute; */
-  /* min-width: 100%; */
-  /* min-height: 100%; */
   max-width: 100vw;
   max-height: 100vh;
-  /* left: 0; */
-  /* bottom: 0; */
   transition: transform 900ms ease-in-out;
 }
 
@@ -398,10 +403,10 @@ section {
 
 .xScreenHeader {
   position: absolute;
-  right: 1em;
+  top: 0;
+  right: 0;
   display: flex;
   justify-content: flex-end;
-  margin-top: 1em;
   font-size: 3em;
   z-index: 150;
 }
@@ -416,7 +421,81 @@ section {
   z-index: 10;
 }
 
-.xScreenInfo img {
+.xScreenAppDetail {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--black);
+  padding: 2em;
+  overflow: hidden;
+}
+
+.xScreenAppDetail p {
+  font-size: 2em;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+.xScreenAppDetail .descriptionContainer {
+  flex: 1;
+  position: relative;
+  width: 50%;
+  height: 200px;
+  background-color: var(--white);
+  padding: 1em;
+  border-radius: 5px;
+  transition: box-shadow 900ms ease-in-out;
+  z-index: 50;
+}
+
+.xScreenAppDetail div.linkRow {
+  position: absolute;
+  bottom: 0;
+  right: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 1em 0;
+}
+
+.xScreenAppDetail svg {
+  width: 3em;
+  height: 3em;
+}
+
+.xScreenAppDetail a {
+  text-decoration: none;
+  color: var(--black);
+}
+
+.xScreenAppDetail > .appImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75%;
+  width: 100%;
+}
+
+.xScreenAppDetail > .appImageContainer > img {
+  height: 75%;
+  border: 4px solid var(--black);
+  border-radius: 10px;
+  margin: 0 2em;
+  transition: box-shadow 900ms ease-in-out;
+  z-index: 55;
+}
+
+.xScreenAppDetail > .appImageContainer > img.app {
+  height: 75%;
+  max-width: 50%;
+  border: 4px solid var(--black);
+  border-radius: 10px;
+  margin: 0 0.5em;
+  aspect-ratio: 0.55;
+}
+
+.xScreenAppDetail .xScreenInfo img {
   position: absolute;
   top: 0;
   right: 0;
@@ -434,6 +513,36 @@ section {
 }
 
 @media screen and (max-width: 750px) {
+  .xScreenAppDetail > .appImageContainer {
+    height: 50%;
+  }
+
+  .xScreenAppDetail {
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+
+  .xScreenAppDetail .descriptionContainer {
+    flex: 0;
+    position: relative;
+    width: 75%;
+    background-color: var(--white);
+  }
+
+  .xScreenAppDetail p {
+    font-size: 1.25em;
+    font-family: "Josefin Sans", sans-serif;
+    padding-bottom: 3em;
+  }
+
+  .xScreenAppDetail > .appImageContainer > img {
+    height: 75%;
+    margin: 0;
+  }
+
   #projectsArray h2 {
     font-size: 18px;
     line-height: 1em;
@@ -446,7 +555,8 @@ section {
 
   .xScreenHeader {
     right: unset;
-    top: -1.5em;
+    left: 0.5em;
+    font-size: 2em;
   }
 }
 
@@ -602,14 +712,14 @@ section {
   background-color: var(--white);
 }
 
-#parallax1 > img {
+/* #parallax1 > img {
   position: absolute;
   left: unset;
   right: 0;
   height: auto;
   min-width: 0;
   min-height: 0;
-}
+} */
 
 @media screen and (max-width: 750px) {
   .aboutInfoContainer {
@@ -1126,3 +1236,19 @@ section {
   font-size: 24px;
 }
 /*   #endregion   */
+
+article.currentXScroll img {
+  box-shadow: -50px 8px 4px 0 var(--shadowDark);
+}
+
+article.nextXScroll img {
+  box-shadow: 25px 8px 4px 0 var(--shadowDark);
+}
+
+article.currentXScroll .descriptionContainer {
+  box-shadow: -50px 8px 4px 0 var(--shadowDark);
+}
+
+article.nextXScroll .descriptionContainer {
+  box-shadow: 25px 8px 4px 0 var(--shadowDark);
+}
