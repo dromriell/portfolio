@@ -22,6 +22,8 @@ import { staticUrls } from "./utils/urls";
 import StatusBadge from "./components/StatusBadge";
 import NoteForm from "./components/NoteForm";
 
+const apiLoadEvent = new Event("apiLoaded");
+
 /**
  * Set screen height
  */
@@ -74,6 +76,7 @@ const renderScrollSections = async () => {
     window.alert(error);
     return;
   }
+  document.dispatchEvent(apiLoadEvent);
   screenData.forEach((data, index) => {
     // Init related components
     const sectionElement = new XScrollScreen(index, data);
@@ -229,19 +232,18 @@ denyOrientationBTN.addEventListener(
 /**
  * Event Listeners
  */
-const handleHomeExperienceReady = (e) => {
-  if (e.detail.type === "tile") {
-    if (
-      typeof DeviceOrientationEvent !== "undefined" &&
-      typeof DeviceOrientationEvent.requestPermission === "function"
-    ) {
-      orientationDialog.classList.add("show");
-      return;
-    } else {
-      removeLoadingOverlay();
-    }
+
+const handleAPILoaded = (e) => {
+  resizeManager.setViewHeight(true);
+  if (
+    typeof DeviceOrientationEvent !== "undefined" &&
+    typeof DeviceOrientationEvent.requestPermission === "function"
+  ) {
+    orientationDialog.classList.add("show");
+    return;
+  } else {
+    removeLoadingOverlay();
   }
-  document.removeEventListener("ready", handleHomeExperienceReady);
 };
 
 /**
@@ -258,5 +260,5 @@ window.addEventListener("resize", () => {
   scrollManager.handleDirectScroll(scrollManager.getFullCurrentScreenIndex());
 });
 
-document.addEventListener("ready", handleHomeExperienceReady);
+document.addEventListener("apiLoaded", handleAPILoaded);
 smoothscroll.polyfill();
