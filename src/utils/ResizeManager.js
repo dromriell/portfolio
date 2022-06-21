@@ -13,16 +13,16 @@ export default class ResizeManager {
   setViewHeight(init = false) {
     const hasInnerWidthChanged =
       this.innerDimensions.width !== window.innerWidth;
-    if (!init && !hasInnerWidthChanged) {
-      return;
+    const hasInnerHeightGrown =
+      this.innerDimensions.height < window.innerHeight;
+    if (init || hasInnerWidthChanged || hasInnerHeightGrown) {
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+      this.innerDimensions = {
+        height: window.innerHeight,
+        width: window.innerWidth,
+      };
     }
-
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-    this.innerDimensions = {
-      height: window.innerHeight,
-      width: window.innerWidth,
-    };
   }
 
   checkOuterDimensionChange() {
