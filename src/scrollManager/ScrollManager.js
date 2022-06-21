@@ -21,6 +21,7 @@ export default class ScrollManager {
     this.isScrollLocked = false;
     this.isXScrollScreenFocused = false;
     this.currentScreenIndex = 0;
+    this.currentSubScreenIndex = 0;
     this.maxScreenIndex = 0;
 
     this.scrollOrderArray = [];
@@ -167,6 +168,7 @@ export default class ScrollManager {
     currentSection.clearXScrollOrderClasses();
     currentSection.setXScrollOrderClasses(nextIndex);
     currentSection.currentIndex = nextIndex;
+    this.currentSubScreenIndex = nextIndex;
   }
 
   /**
@@ -182,6 +184,7 @@ export default class ScrollManager {
     const parentIndex = Math.floor(index); // Remove any decimal value from index value
 
     this.currentScreenIndex = parentIndex;
+    this.currentSubScreenIndex = childIndex;
     const targetSection = this.scrollOrderArray[parentIndex];
     const nextScrollPosition = targetSection.element.getBoundingClientRect().y;
     window.scrollBy({
@@ -301,6 +304,10 @@ export default class ScrollManager {
    */
   getSectionByID(id) {
     return this.scrollOrderArray.find((element) => element.id === id);
+  }
+
+  getFullCurrentScreenIndex() {
+    return `${this.currentScreenIndex}.${this.currentSubScreenIndex}`;
   }
 
   onScroll() {}
