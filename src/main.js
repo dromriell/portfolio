@@ -26,7 +26,7 @@ import NoteForm from "./components/NoteForm";
  * Set screen height
  */
 const resizeManager = new ResizeManager();
-resizeManager.setViewHeight();
+resizeManager.setViewHeight(true);
 
 /**
  * 3D Scenes

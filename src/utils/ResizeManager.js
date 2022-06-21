@@ -10,10 +10,10 @@ export default class ResizeManager {
     };
   }
 
-  setViewHeight() {
+  setViewHeight(init = false) {
     const hasInnerWidthChanged =
       this.innerDimensions.width !== window.innerWidth;
-    if (!hasInnerWidthChanged) {
+    if (!init && !hasInnerWidthChanged) {
       return;
     }
 
