@@ -23,7 +23,7 @@ export default class Resources {
     this.loaders = {};
     this.loaders.dracoLoader = new DRACOLoader();
     this.loaders.dracoLoader.setDecoderPath(
-      "/@fs/C:/Users/devon/WebDev/portfolio3/portfolio/static/draco/"
+      new URL("../draco/", import.meta.url).href
     );
     this.loaders.gltfLoader = new GLTFLoader();
     this.loaders.gltfLoader.setDRACOLoader(this.loaders.dracoLoader);
