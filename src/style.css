@@ -1285,14 +1285,15 @@ section {
 /* Dialogue */ /*   #region   */
 #orientationDialog {
   position: absolute;
+  height: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  top: 50%;
+  top: 0;
   padding: 0 3em 0 3em;
   z-index: 10000;
   width: calc(100% - 6em);
-  background: var(--grey);
+  background: var(--black);
   display: none;
 }
 
@@ -1302,20 +1303,27 @@ section {
 
 .dialogButtonRow {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
   margin: 1em 0;
 }
 
 .dialogButton {
   color: #1e1e1e;
+  font-size: 1.25em;
+  width: 45%;
+  justify-content: center;
+  align-items: center;
+  max-width: 250px;
 }
 
-#orientationDialog p {
+#orientationDialog h2 {
   color: var(--white);
   line-height: 1.5em;
-  padding: 0 1em;
-  text-align: justify;
-  font-size: 24px;
+  padding: 1em 0.5em;
+  text-align: center;
+}
+
+#allowOrientationBTN {
 }
 /*   #endregion   */
