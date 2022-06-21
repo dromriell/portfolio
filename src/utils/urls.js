@@ -1,5 +1,4 @@
 import aboutPicURL from "../../static/aboutPic6.png";
-import developePicURL from "../../static/lightbulb.png";
 import vhsURL from "../../static/vhs.gif";
 
 export const apiUrls = {
@@ -9,6 +8,5 @@ export const apiUrls = {
 
 export const staticUrls = {
   aboutPic: aboutPicURL,
-  developePic: developePicURL,
   vhsOverlay: vhsURL,
 };
