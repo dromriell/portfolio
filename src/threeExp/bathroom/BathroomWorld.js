@@ -1,4 +1,3 @@
-import Environment from "../landingScreen/Environment";
 import Bathroom from "./Bathroom";
 import Water from "./Water";
 
@@ -16,7 +15,6 @@ export default class BathroomWorld {
       // Init the environment after source ready
       this.bathroom = new Bathroom(this.experience);
       this.water = new Water(this.experience);
-      this.environment = new Environment(this.experience);
     });
   }
 
