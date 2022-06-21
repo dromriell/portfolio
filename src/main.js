@@ -1,6 +1,7 @@
 import smoothscroll from "smoothscroll-polyfill";
 
 import ScrollManager from "./scrollManager/ScrollManager";
+import ResizeManager from "./utils/ResizeManager";
 import Experience from "./threeExp/Experience";
 import TilesWorld from "./threeExp/landingScreen/TilesWorld";
 import TilesCamera from "./threeExp/landingScreen/TilesCamera";
@@ -18,14 +19,14 @@ import TextCarousel from "./components/TextCarousel";
 
 import { fetchScreenData } from "./utils/apiActions";
 import { staticUrls } from "./utils/urls";
-import { setViewHeight } from "./utils/setViewHeight";
 import StatusBadge from "./components/StatusBadge";
 import NoteForm from "./components/NoteForm";
 
 /**
  * Set screen height
  */
-setViewHeight();
+const resizeManager = new ResizeManager();
+resizeManager.setViewHeight();
 
 /**
  * 3D Scenes
@@ -251,7 +252,9 @@ const removeLoadingOverlay = () => {
 };
 
 window.addEventListener("resize", () => {
-  setViewHeight();
+  if (!scrollManager.isScrolling) {
+    resizeManager.setViewHeight();
+  }
   scrollManager.handleDirectScroll(scrollManager.getFullCurrentScreenIndex());
 });
 
