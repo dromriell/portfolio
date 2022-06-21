@@ -180,14 +180,19 @@ section {
   z-index: 0;
 }
 
+.parralaxItem > div.backgroundFilter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--shadowDark);
+  z-index: 5;
+}
+
 .parralaxItem > img {
-  /* position: absolute; */
-  /* min-width: 100%; */
-  /* min-height: 100%; */
   max-width: 100vw;
   max-height: 100vh;
-  /* left: 0; */
-  /* bottom: 0; */
   transition: transform 900ms ease-in-out;
 }
 
@@ -398,10 +403,10 @@ section {
 
 .xScreenHeader {
   position: absolute;
-  right: 1em;
+  top: 0;
+  right: 0;
   display: flex;
   justify-content: flex-end;
-  margin-top: 1em;
   font-size: 3em;
   z-index: 150;
 }
@@ -416,7 +421,100 @@ section {
   z-index: 10;
 }
 
-.xScreenInfo img {
+.xScreenAppDetail {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--black);
+  padding: 2em;
+  overflow: hidden;
+}
+
+.xScreenAppDetail p {
+  font-size: 2em;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+.xScreenAppDetail .descriptionContainer {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  position: relative;
+  width: 50%;
+  height: 70%;
+  max-width: 750px;
+  padding: 1em;
+}
+
+.xScreenAppDetail .descriptionItem {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  height: 75%;
+  background-color: var(--white);
+  border-radius: 5px;
+  z-index: 50;
+  max-width: 750px;
+  padding: 1em 0.5em;
+}
+
+.xScreenAppDetail div.linkRow {
+  position: absolute;
+  bottom: 0;
+  right: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 1em 0;
+}
+
+.xScreenAppDetail svg {
+  width: 3em;
+  height: 3em;
+}
+
+.xScreenAppDetail a:nth-child(2n) {
+  margin-left: 1em;
+}
+
+.xScreenAppDetail a {
+  text-decoration: none;
+  color: var(--black);
+}
+
+.xScreenAppDetail > .appImageContainer {
+  position: relative;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75%;
+}
+
+.xScreenAppDetail > .appImageContainer > img {
+  height: 75%;
+  border: 4px solid var(--black);
+  border-radius: 10px;
+  margin: 0 2em;
+  z-index: 55;
+}
+
+.xScreenAppDetail > .appImageContainer > img:nth-child(2n) {
+  z-index: 54;
+}
+
+.xScreenAppDetail > .appImageContainer > img.app {
+  height: 75%;
+  /* max-width: 50%; */
+  border: 4px solid var(--black);
+  border-radius: 10px;
+  margin: 0 1.5em;
+  aspect-ratio: 0.55;
+}
+
+.xScreenAppDetail .xScreenInfo img {
   position: absolute;
   top: 0;
   right: 0;
@@ -434,6 +532,101 @@ section {
 }
 
 @media screen and (max-width: 750px) {
+  .xScreenAppDetail > .appImageContainer {
+    height: 50%;
+    width: 100%;
+  }
+
+  .xScreenAppDetail {
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+
+  .xScreenAppDetail .descriptionContainer {
+    flex: 0;
+    position: relative;
+    width: 90%;
+    height: 180px;
+  }
+
+  .xScreenAppDetail .descriptionItem {
+    height: 180px;
+  }
+
+  .xScreenAppDetail p {
+    font-size: 1.25em;
+    padding-bottom: 3em;
+  }
+
+  .xScreenAppDetail > .appImageContainer {
+    flex: 0;
+  }
+
+  .xScreenAppDetail > .appImageContainer > img {
+    height: 75%;
+    margin: 0;
+  }
+
+  article.currentXScroll .imgShadowContainer {
+    transform: translateX(-75px);
+  }
+
+  .shadowContainer {
+    position: absolute;
+    flex: 1;
+    width: 85%;
+    height: 85%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 900ms ease-in-out;
+    z-index: 49;
+  }
+
+  .imgShadowContainer {
+    top: 35px;
+    left: 35px;
+  }
+
+  .descShadowContainer {
+    top: 60px;
+    left: -35px;
+  }
+
+  .imgShadowContainer .appShadow {
+    height: 76%;
+    aspect-ratio: 0.55;
+    margin: 0 1.5em;
+    border-radius: 10px;
+    background-color: var(--shadowDark);
+    filter: blur(5px) brightness(0.75);
+  }
+
+  .imgShadowContainer .siteShadow {
+    height: 76%;
+    margin: 0 0.5em;
+    border-radius: 10px;
+    background-color: var(--shadowDark);
+    filter: blur(5px) brightness(0.75);
+    aspect-ratio: 1;
+  }
+
+  .descShadowContainer .descShadow {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+    margin: 0 0.5em;
+    border-radius: 5px;
+    background-color: var(--shadowDark);
+    filter: blur(5px) brightness(0.75);
+    padding: 1em;
+    max-width: 750px;
+  }
+
   #projectsArray h2 {
     font-size: 18px;
     line-height: 1em;
@@ -446,7 +639,8 @@ section {
 
   .xScreenHeader {
     right: unset;
-    top: -1.5em;
+    left: 0.5em;
+    font-size: 2em;
   }
 }
 
@@ -546,7 +740,6 @@ section {
   color: var(--blue);
   font-size: 1.35em;
   opacity: 0;
-  transition: opacity 500ms ease-in-out;
 }
 
 .devDetails p {
@@ -602,14 +795,14 @@ section {
   background-color: var(--white);
 }
 
-#parallax1 > img {
+/* #parallax1 > img {
   position: absolute;
   left: unset;
   right: 0;
   height: auto;
   min-width: 0;
   min-height: 0;
-}
+} */
 
 @media screen and (max-width: 750px) {
   .aboutInfoContainer {

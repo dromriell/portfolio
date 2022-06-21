@@ -21,6 +21,7 @@ export default class ScrollManager {
     this.isScrollLocked = false;
     this.isXScrollScreenFocused = false;
     this.currentScreenIndex = 0;
+    this.currentSubScreenIndex = 0;
     this.maxScreenIndex = 0;
 
     this.scrollOrderArray = [];
@@ -167,6 +168,7 @@ export default class ScrollManager {
     currentSection.clearXScrollOrderClasses();
     currentSection.setXScrollOrderClasses(nextIndex);
     currentSection.currentIndex = nextIndex;
+    this.currentSubScreenIndex = nextIndex;
   }
 
   /**
@@ -182,6 +184,7 @@ export default class ScrollManager {
     const parentIndex = Math.floor(index); // Remove any decimal value from index value
 
     this.currentScreenIndex = parentIndex;
+    this.currentSubScreenIndex = childIndex;
     const targetSection = this.scrollOrderArray[parentIndex];
     const nextScrollPosition = targetSection.element.getBoundingClientRect().y;
     window.scrollBy({
@@ -247,25 +250,28 @@ export default class ScrollManager {
    * This allows for touches on buttons and prevents unintended scrolling.
    */
   handleTouchEvent(e) {
-    e.preventDefault();
     if (this.isScrollLocked || this.isScrolling) {
       return;
-    } else if (e.type === "touchstart") {
-      this.touchStart = e.changedTouches[0].screenY;
-      return;
-    } else if (e.type === "touchend" && this.touchStart) {
+    }
+    e.preventDefault();
+
+    if (e.type === "touchend" && this.touchStart) {
       const touchEnd = e.changedTouches[0].screenY;
       const deltaY = this.touchStart - touchEnd;
-      if (deltaY < -30 || deltaY > 30) {
+      if (deltaY < -50 || deltaY > 50) {
         this.executeScroll(deltaY);
+        this.touchStart = null;
       }
-      this.touchStart = null;
     }
   }
 
   handleTouchMove(e) {
     e.preventDefault();
-    e.stopImmediatePropagation();
+    const touches = e.touches[0].screenY;
+    if (!this.touchStart) {
+      this.touchStart = touches;
+      return;
+    }
   }
 
   /**
@@ -298,6 +304,10 @@ export default class ScrollManager {
    */
   getSectionByID(id) {
     return this.scrollOrderArray.find((element) => element.id === id);
+  }
+
+  getFullCurrentScreenIndex() {
+    return `${this.currentScreenIndex}.${this.currentSubScreenIndex}`;
   }
 
   onScroll() {}

@@ -1,6 +1,5 @@
 import * as THREE from "three";
 
-import Camera from "./landingScreen/TilesCamera";
 import Renderer from "./Renderer";
 import Resources from "./utils/Resources";
 import Sizes from "./utils/Sizes";

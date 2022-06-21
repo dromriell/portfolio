@@ -1,3 +1,5 @@
+import svgIcons from "../utils/svgIcons";
+
 /**
  * Renders and displays individual horizontal scroll screen based on data param.
  *
@@ -7,13 +9,15 @@
 export default class XScrollScreen {
   constructor(index, data) {
     this.index = index;
+    this.isAppScreen = data.is_app_screen;
     this.data = data;
     this.name = data.name;
-    this.desc = data.desc;
+    this.description = data.description;
     this.img = data.img_source;
 
     this.setNodes();
     this.setClasses();
+    this.isAppScreen && this.setDetailField();
     this.setObserver();
 
     // Append nodes
@@ -21,8 +25,9 @@ export default class XScrollScreen {
   }
 
   setChildren() {
-    this.nodes.article.appendChild(this.nodes.displayDiv);
+    !this.isAppScreen && this.nodes.article.appendChild(this.nodes.displayDiv);
     this.nodes.article.appendChild(this.nodes.header);
+    this.isAppScreen && this.nodes.article.appendChild(this.nodes.detailField);
     this.nodes.article.appendChild(this.nodes.observerTrigger);
   }
 
@@ -34,20 +39,14 @@ export default class XScrollScreen {
       article: document.createElement("article"),
       displayDiv: document.createElement("div"),
       header: document.createElement("div"),
-      text: document.createElement("h2"),
+      detailField: document.createElement("div"),
       observerTrigger: document.createElement("div"),
       img: document.createElement("img"),
     };
     this.nodes.article.setAttribute("id", `${this.name.split(" ")[0]}`);
     this.nodes.article.setAttribute("name", this.name);
 
-    this.nodes.text.innerText = `${this.name.toUpperCase()} - ${
-      this.description
-    }`;
-
     this.nodes.observerTrigger.setAttribute("display", "none");
-
-    // Set img src
   }
 
   /*
@@ -66,8 +65,90 @@ export default class XScrollScreen {
 
     this.nodes.article.setAttribute("class", articleClasses);
     this.nodes.header.setAttribute("class", "xScreenHeader");
+    this.nodes.detailField.setAttribute("class", "xScreenAppDetail");
     this.nodes.displayDiv.setAttribute("class", "xScreenInfo");
     this.nodes.observerTrigger.classList.add("observerTrigger");
+  }
+
+  setDetailField() {
+    const descriptionContainerNode = document.createElement("div");
+    const childNodeFragment = document.createDocumentFragment();
+    const descriptionItemNode = document.createElement("div");
+    const imageContainerNode = document.createElement("div");
+    const linkRowNode = document.createElement("div");
+    const descriptionNode = document.createElement("p");
+    const imageShadowContainer = document.createElement("div");
+    const descriptionShadowNode = document.createElement("div");
+    const descShadowNode = document.createElement("div");
+    const urlAnchorNode = document.createElement("a");
+    const gitHubAnchorNode = document.createElement("a");
+
+    descriptionContainerNode.classList.add("descriptionContainer");
+    descriptionItemNode.classList.add("descriptionItem");
+    imageContainerNode.classList.add("appImageContainer");
+    imageShadowContainer.classList.add("imgShadowContainer", "shadowContainer");
+    descriptionShadowNode.classList.add(
+      "descShadowContainer",
+      "shadowContainer"
+    );
+    descShadowNode.classList.add("descShadow");
+    linkRowNode.classList.add("linkRow");
+
+    // Add description text
+    descriptionNode.innerText = this.description;
+
+    // Add first image if available
+    if (this.data.img_1_source) {
+      const imageNode1 = document.createElement("img");
+      const imageShadowNode1 = document.createElement("div");
+      imageNode1.setAttribute("src", this.data.img_1_source);
+      imageNode1.classList.add(this.data.web_link ? "site" : "app");
+      imageShadowNode1.classList.add(
+        this.data.web_link ? "siteShadow" : "appShadow"
+      );
+      imageShadowContainer.appendChild(imageShadowNode1);
+      imageContainerNode.appendChild(imageNode1);
+    }
+
+    // Add second image if available
+    if (this.data.img_2_source) {
+      const imageNode2 = document.createElement("img");
+      const imageShadowNode1 = document.createElement("div");
+
+      imageNode2.setAttribute("src", this.data.img_2_source);
+      imageNode2.classList.add(this.data.web_link ? "site" : "app");
+      imageShadowNode1.classList.add(
+        this.data.web_link ? "siteShadow" : "appShadow"
+      );
+      imageShadowContainer.appendChild(imageShadowNode1);
+      imageContainerNode.appendChild(imageNode2);
+    }
+
+    // Add links and icons if available
+    if (this.data.web_link) {
+      urlAnchorNode.innerHTML = svgIcons.link;
+      urlAnchorNode.setAttribute("href", this.data.web_link);
+      linkRowNode.appendChild(urlAnchorNode);
+    }
+    if (this.data.git_link) {
+      gitHubAnchorNode.innerHTML = svgIcons.gitHub;
+      gitHubAnchorNode.setAttribute("href", this.data.git_link);
+      gitHubAnchorNode.addEventListener("touchend", (e) =>
+        window.open(this.data.git_link, "_blank")
+      );
+      linkRowNode.appendChild(gitHubAnchorNode);
+    }
+
+    // Append children
+    descriptionItemNode.appendChild(descriptionNode);
+    descriptionItemNode.appendChild(linkRowNode);
+    descriptionShadowNode.appendChild(descShadowNode);
+    descriptionContainerNode.appendChild(descriptionItemNode);
+    descriptionContainerNode.appendChild(descriptionShadowNode);
+    imageContainerNode.appendChild(imageShadowContainer);
+    childNodeFragment.appendChild(imageContainerNode);
+    childNodeFragment.appendChild(descriptionContainerNode);
+    this.nodes.detailField.appendChild(childNodeFragment);
   }
 
   setObserver() {

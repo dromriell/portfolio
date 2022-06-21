@@ -252,7 +252,7 @@ const removeLoadingOverlay = () => {
 
 window.addEventListener("resize", () => {
   setViewHeight();
-  scrollManager.handleDirectScroll(scrollManager.currentScreenIndex);
+  scrollManager.handleDirectScroll(scrollManager.getFullCurrentScreenIndex());
 });
 
 document.addEventListener("ready", handleHomeExperienceReady);

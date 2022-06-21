@@ -1,4 +1,3 @@
-import Environment from "./Environment";
 import Tiles from "./Tiles";
 
 export default class TilesWorld {
@@ -14,7 +13,6 @@ export default class TilesWorld {
       }
       // Init the environment after source ready
       this.tiles = new Tiles(this.experience);
-      this.environment = new Environment(this.experience);
     });
   }
 
