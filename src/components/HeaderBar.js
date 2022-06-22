@@ -104,7 +104,7 @@ export default class HeaderBar {
 
       const mobileButton = sectionButton.cloneNode(true);
 
-      ["touchstart", "mouseup"].forEach((event) => {
+      ["touchstart", "mousedown"].forEach((event) => {
         sectionButton.addEventListener(event, (e) => {
           this.toggleScrollOverlay();
           this.scrollManager.handleDirectScroll(sectionIndex);
@@ -126,6 +126,7 @@ export default class HeaderBar {
       this.buttonElements.header.push(sectionButton);
       this.buttonElements.mobile.push(mobileButton);
     }
+    this.highlightCurrentScreen();
   }
 
   /**
@@ -160,11 +161,33 @@ export default class HeaderBar {
   /**
    * Highlight the current screens buttons
    */
-  highlightCurrentScreen() {
-    const headerButton =
-      this.buttonElements.header[this.scrollManager.currentScreenIndex];
-    const mobileButton =
-      this.buttonElements.mobile[this.scrollManager.currentScreenIndex];
+  highlightCurrentScreen(index) {
+    this.clearHighlightedButtons();
+    const selectedIndex = index
+      ? index
+      : this.scrollManager.getFullCurrentScreenIndex();
+    const headerButton = this.buttonElements.header.find((button) => {
+      return button.getAttribute("data-scroll") === selectedIndex;
+    });
+    const mobileButton = this.buttonElements.mobile.find((button) => {
+      return button.getAttribute("data-scroll") === selectedIndex;
+    });
+    headerButton.setAttribute("id", "headerSelectedBTN");
+    mobileButton.setAttribute("id", "mobileSelectedBTN");
+  }
+
+  /**
+   * Clear all highlighted buttons
+   */
+  clearHighlightedButtons() {
+    const highlightedHeaderButton =
+      document.querySelector("#headerSelectedBTN");
+    const highlightedMobileButton =
+      document.querySelector("#mobileSelectedBTN");
+    highlightedHeaderButton &&
+      highlightedHeaderButton.removeAttribute("id", "headerSelectedBTN");
+    highlightedMobileButton &&
+      highlightedMobileButton.removeAttribute("id", "headerSelectedBTN");
   }
 
   /**
