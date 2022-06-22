@@ -56,8 +56,9 @@ const parallaxManager = new ParallaxManager(
   scrollManager.getSectionByID("mainScreen").element
 );
 
-scrollManager.onScrollEnd = () => {
+scrollManager.onScrollEnd = (index) => {
   headerBar.updateMarker();
+  headerBar.highlightCurrentScreen(index);
 };
 
 /**
@@ -90,7 +91,6 @@ const renderScrollSections = async () => {
     const parallaxItem = new ParallaxItem(data, index);
 
     if (data.name === "About") {
-      parallaxItem.img.src = staticUrls.aboutPic;
       const aboutInfo = new AboutInfo(data);
       sectionElement.nodes.displayDiv.appendChild(aboutInfo.element);
     } else if (data.name === "Develope") {
@@ -206,7 +206,6 @@ const handleOrientationPermissionToggle = () => {
           alert("DeviceOrientationEvent Granted");
           removeLoadingOverlay();
         } else {
-          console.log("TEST TEST TEST");
           alert("PERM Not Granted", permissionState);
         }
       })
@@ -235,6 +234,7 @@ denyOrientationBTN.addEventListener(
 
 const handleAPILoaded = (e) => {
   resizeManager.setViewHeight(true);
+  headerBar.updateMarker();
   if (
     typeof DeviceOrientationEvent !== "undefined" &&
     typeof DeviceOrientationEvent.requestPermission === "function"
