@@ -7,6 +7,7 @@ export default class ParallaxItem {
     this.isAppScreen = data.is_app_screen;
 
     this.img.src = this.imgSrc;
+
     if (this.backgroundColor) {
       this.element.style.background = this.backgroundColor;
     }
@@ -19,8 +20,7 @@ export default class ParallaxItem {
 
     this.element.classList.add("parralaxItem");
     this.element.setAttribute("id", `parallax${index}`);
-    //  this.element.style.backgroundImage = `url(${this.img})`;
     this.element.style.zIndex = index + 1;
-    this.element.appendChild(this.img);
+    this.imgSrc && this.element.appendChild(this.img);
   }
 }
