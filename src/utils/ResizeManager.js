@@ -15,14 +15,7 @@ export default class ResizeManager {
       this.innerDimensions.width !== window.innerWidth;
     const hasInnerHeightGrown =
       this.innerDimensions.height < window.innerHeight;
-    const hasOuterDimensionChanged = this.checkOuterDimensionChange();
-
-    if (
-      init ||
-      hasInnerWidthChanged ||
-      hasInnerHeightGrown ||
-      hasOuterDimensionChanged
-    ) {
+    if (init || hasInnerWidthChanged || hasInnerHeightGrown) {
       let vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty("--vh", `${vh}px`);
       this.innerDimensions = {
