@@ -525,6 +525,63 @@ section {
   overflow: hidden;
 }
 
+article.currentXScroll .imgShadowContainer {
+  transform: translateX(-75px);
+}
+
+.shadowContainer {
+  position: absolute;
+  flex: 1;
+  width: 85%;
+  height: 85%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 900ms ease-in-out;
+  z-index: 49;
+}
+
+.imgShadowContainer {
+  top: 35px;
+  left: 35px;
+}
+
+.descShadowContainer {
+  top: 60px;
+  left: -35px;
+}
+
+.imgShadowContainer .appShadow {
+  height: 76%;
+  aspect-ratio: 0.55;
+  margin: 0 1.5em;
+  border-radius: 10px;
+  background-color: var(--shadowDark);
+  filter: blur(5px) brightness(0.75);
+}
+
+.imgShadowContainer .siteShadow {
+  height: 76%;
+  margin: 0 0.5em;
+  border-radius: 10px;
+  background-color: var(--shadowDark);
+  filter: blur(5px) brightness(0.75);
+  aspect-ratio: 1;
+}
+
+.descShadowContainer .descShadow {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 80%;
+  margin: 0 0.5em;
+  border-radius: 5px;
+  background-color: var(--shadowDark);
+  filter: blur(5px) brightness(0.75);
+  padding: 1em;
+  max-width: 750px;
+}
+
 .observerTrigger {
   position: absolute;
   left: 70%;
@@ -568,63 +625,6 @@ section {
   .xScreenAppDetail > .appImageContainer > img {
     height: 75%;
     margin: 0;
-  }
-
-  article.currentXScroll .imgShadowContainer {
-    transform: translateX(-75px);
-  }
-
-  .shadowContainer {
-    position: absolute;
-    flex: 1;
-    width: 85%;
-    height: 85%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 900ms ease-in-out;
-    z-index: 49;
-  }
-
-  .imgShadowContainer {
-    top: 35px;
-    left: 35px;
-  }
-
-  .descShadowContainer {
-    top: 60px;
-    left: -35px;
-  }
-
-  .imgShadowContainer .appShadow {
-    height: 76%;
-    aspect-ratio: 0.55;
-    margin: 0 1.5em;
-    border-radius: 10px;
-    background-color: var(--shadowDark);
-    filter: blur(5px) brightness(0.75);
-  }
-
-  .imgShadowContainer .siteShadow {
-    height: 76%;
-    margin: 0 0.5em;
-    border-radius: 10px;
-    background-color: var(--shadowDark);
-    filter: blur(5px) brightness(0.75);
-    aspect-ratio: 1;
-  }
-
-  .descShadowContainer .descShadow {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 80%;
-    margin: 0 0.5em;
-    border-radius: 5px;
-    background-color: var(--shadowDark);
-    filter: blur(5px) brightness(0.75);
-    padding: 1em;
-    max-width: 750px;
   }
 
   #projectsArray h2 {
@@ -1112,6 +1112,16 @@ section {
   justify-content: flex-start;
 }
 
+#headerSelectedBTN h4 {
+  color: var(--screenTan);
+  text-decoration: underline;
+}
+
+#mobileSelectedBTN h4 {
+  color: var(--screenTan);
+  text-decoration: underline;
+}
+
 .mobileToggleBtn {
   display: none;
   border: none;
@@ -1181,7 +1191,8 @@ section {
     height: 100vh;
     top: 0;
     left: 0;
-    background: var(--shadowDark);
+    background: var(--black);
+    opacity: 0.95;
     z-index: 50;
     transition: transform 500ms ease-in-out;
   }
