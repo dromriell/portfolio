@@ -501,6 +501,14 @@ section {
   z-index: 55;
 }
 
+.xScreenAppDetail > .appImageContainer > video {
+  height: 100%;
+  border: 4px solid var(--black);
+  border-radius: 10px;
+  margin: 0 2em;
+  z-index: 55;
+}
+
 .xScreenAppDetail > .appImageContainer > img:nth-child(2n) {
   z-index: 54;
 }
@@ -509,6 +517,15 @@ section {
   height: 75%;
   /* max-width: 50%; */
   border: 4px solid var(--black);
+  border-radius: 10px;
+  margin: 0 1.5em;
+  aspect-ratio: 0.55;
+}
+
+.xScreenAppDetail > .appImageContainer > video.app {
+  height: 100%;
+  border: 4px solid var(--black);
+  background-color: var(--black);
   border-radius: 10px;
   margin: 0 1.5em;
   aspect-ratio: 0.55;
@@ -623,6 +640,11 @@ article.currentXScroll .imgShadowContainer {
   }
 
   .xScreenAppDetail > .appImageContainer > img {
+    height: 75%;
+    margin: 0;
+  }
+
+  .xScreenAppDetail > .appImageContainer > video {
     height: 75%;
     margin: 0;
   }
