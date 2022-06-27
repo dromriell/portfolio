@@ -14,6 +14,7 @@ export default class XScrollScreen {
     this.name = data.name;
     this.description = data.description;
     this.img = data.img_source;
+    this.videoPaused = true;
 
     this.setNodes();
     this.setClasses();
@@ -97,8 +98,25 @@ export default class XScrollScreen {
     // Add description text
     descriptionNode.innerText = this.description;
 
+    if (this.data.video_source) {
+      this.videoNode = document.createElement("video");
+      const sourceNode = document.createElement("source");
+      const videoShadowNode = document.createElement("div");
+
+      this.videoNode.setAttribute("muted", true);
+      this.videoNode.setAttribute("poster", this.data.img_1_source || "");
+      sourceNode.setAttribute("src", this.data.video_source);
+      this.videoNode.classList.add(this.data.web_link ? "site" : "app");
+      videoShadowNode.classList.add(
+        this.data.web_link ? "siteShadow" : "appShadow"
+      );
+      imageShadowContainer.appendChild(videoShadowNode);
+      this.videoNode.appendChild(sourceNode);
+      imageContainerNode.appendChild(this.videoNode);
+    }
+
     // Add first image if available
-    if (this.data.img_1_source) {
+    if (!this.data.video_source && this.data.img_1_source) {
       const imageNode1 = document.createElement("img");
       const imageShadowNode1 = document.createElement("div");
       imageNode1.setAttribute("src", this.data.img_1_source);
@@ -111,7 +129,7 @@ export default class XScrollScreen {
     }
 
     // Add second image if available
-    if (this.data.img_2_source) {
+    if (!this.data.video_source && this.data.img_2_source) {
       const imageNode2 = document.createElement("img");
       const imageShadowNode1 = document.createElement("div");
 
@@ -162,6 +180,26 @@ export default class XScrollScreen {
         }
       });
     });
+
+    if (this.data.video_source) {
+      const videoObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.intersectionRatio !== 1 && !this.videoPaused) {
+              this.videoNode.pause();
+              this.videoPaused = true;
+            } else if (this.videoPaused) {
+              this.videoNode.play();
+              this.videoPaused = false;
+            }
+          });
+        },
+        { threshold: 1 }
+      );
+
+      videoObserver.observe(this.videoNode);
+    }
+
     sectionObserver.observe(this.nodes.observerTrigger);
   }
 
