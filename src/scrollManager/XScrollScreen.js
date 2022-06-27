@@ -103,7 +103,8 @@ export default class XScrollScreen {
       const sourceNode = document.createElement("source");
       const videoShadowNode = document.createElement("div");
 
-      this.videoNode.setAttribute("muted", true);
+      this.videoNode.muted = true;
+      this.videoNode.controls = true;
       this.videoNode.setAttribute("poster", this.data.img_1_source || "");
       sourceNode.setAttribute("src", this.data.video_source);
       this.videoNode.classList.add(this.data.web_link ? "site" : "app");
