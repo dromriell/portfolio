@@ -44,8 +44,6 @@
       >
         <div class="contactHeader">
           <h2>LETS TALK&nbsp</h2>
-          <h2>ABOUT&nbsp</h2>
-          <h3></h3>
         </div>
         <div class="contactLinks">
           <svg
@@ -109,19 +107,24 @@
             <div class="formControl textField">
               <label for="name">NAME:</label>
               <div class="inputContainer">
-                <input type="text" name="name" required />
+                <input type="text" name="name" maxlength="75" required />
               </div>
             </div>
             <div class="formControl textField">
               <label for="name">EMAIL:</label>
               <div class="inputContainer">
-                <input type="text" name="email" required />
+                <input type="text" name="email" maxlength="75" required />
               </div>
             </div>
             <div class="formControl textArea">
               <label for="name">MESSAGE:</label>
               <div class="inputContainer">
-                <textarea cols="4" name="note" required></textarea>
+                <textarea
+                  cols="4"
+                  name="note"
+                  maxlength="350"
+                  required
+                ></textarea>
               </div>
             </div>
             <div class="formButtonGroup">

@@ -123,27 +123,6 @@ const renderScrollSections = async () => {
 renderScrollSections();
 
 /**
- * Contact Header Animation
- */
-const contactHeaderElement = document.querySelector(".contactHeader>h3");
-const testWords = [
-  "THE WEATHER",
-  "THREEJS",
-  "PYTHON",
-  "JAVASCRIPT",
-  "REACT",
-  "REACT NATIVE",
-  "DATA",
-  "JSON",
-  "CSS",
-  "FOOTBALL",
-  "DISC GOLF",
-  "TILE",
-  "COMPONENTS",
-];
-const textCarousel = new TextCarousel(testWords, contactHeaderElement);
-
-/**
  * Update Badge
  */
 const badge = new StatusBadge("Update");

@@ -404,7 +404,7 @@ section {
 .xScreenHeader {
   position: absolute;
   top: 0;
-  right: 0;
+  right: 1em;
   display: flex;
   justify-content: flex-end;
   font-size: 3em;
@@ -439,17 +439,19 @@ section {
 
 .xScreenAppDetail .descriptionContainer {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   flex: 1;
   position: relative;
   width: 50%;
-  height: 70%;
+  height: 75%;
   max-width: 750px;
-  padding: 1em;
 }
 
 .xScreenAppDetail .descriptionItem {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
   position: relative;
   width: 100%;
   height: 75%;
@@ -457,16 +459,33 @@ section {
   border-radius: 5px;
   z-index: 50;
   max-width: 750px;
-  padding: 1em 0.5em;
+}
+
+.descriptionItem > p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1em;
+  line-height: 1.5em;
+  margin-top: 0.5em;
+  flex: 1;
+}
+
+.descriptionItem > span {
+  font-size: 1.25em;
+  display: block;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 0.5em 1em;
 }
 
 .xScreenAppDetail div.linkRow {
-  position: absolute;
-  bottom: 0;
-  right: 1em;
+  width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  align-items: flex-end;
+  justify-content: flex-end;
   padding: 1em 0;
 }
 
@@ -475,8 +494,8 @@ section {
   height: 3em;
 }
 
-.xScreenAppDetail a:nth-child(2n) {
-  margin-left: 1em;
+.xScreenAppDetail a:nth-child(1n) {
+  margin-right: 1em;
 }
 
 .xScreenAppDetail a {
@@ -542,8 +561,16 @@ section {
   overflow: hidden;
 }
 
+article.prevXScroll .imgShadowContainer {
+  transform: translateX(-125px);
+}
+
 article.currentXScroll .imgShadowContainer {
   transform: translateX(-75px);
+}
+
+article.nextXScroll .imgShadowContainer {
+  transform: translateX(0px);
 }
 
 .shadowContainer {
@@ -559,44 +586,40 @@ article.currentXScroll .imgShadowContainer {
 }
 
 .imgShadowContainer {
+  width: 100%;
   top: 35px;
-  left: 35px;
+  left: -2%;
+  filter: blur(5px) brightness(0.75);
 }
 
 .descShadowContainer {
-  top: 60px;
-  left: -35px;
+  top: 35px;
+  left: -15%;
+  filter: blur(5px) brightness(0.75);
 }
 
 .imgShadowContainer .appShadow {
-  height: 76%;
+  height: 100%;
   aspect-ratio: 0.55;
   margin: 0 1.5em;
   border-radius: 10px;
   background-color: var(--shadowDark);
-  filter: blur(5px) brightness(0.75);
 }
 
 .imgShadowContainer .siteShadow {
-  height: 76%;
+  height: 80%;
   margin: 0 0.5em;
   border-radius: 10px;
   background-color: var(--shadowDark);
-  filter: blur(5px) brightness(0.75);
   aspect-ratio: 1;
 }
 
 .descShadowContainer .descShadow {
-  display: flex;
-  align-items: center;
-  width: 100%;
   height: 80%;
   margin: 0 0.5em;
   border-radius: 5px;
   background-color: var(--shadowDark);
-  filter: blur(5px) brightness(0.75);
-  padding: 1em;
-  max-width: 750px;
+  aspect-ratio: 1;
 }
 
 .observerTrigger {
@@ -612,7 +635,8 @@ article.currentXScroll .imgShadowContainer {
   }
 
   .xScreenAppDetail {
-    height: 100%;
+    height: 90%;
+    margin-top: 2em;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -620,19 +644,31 @@ article.currentXScroll .imgShadowContainer {
   }
 
   .xScreenAppDetail .descriptionContainer {
-    flex: 0;
+    flex: 1;
     position: relative;
     width: 90%;
-    height: 180px;
+    height: 40%;
   }
 
   .xScreenAppDetail .descriptionItem {
-    height: 180px;
+    height: 100%;
   }
 
-  .xScreenAppDetail p {
+  .descriptionItem > p {
+    align-items: flex-start;
     font-size: 1.25em;
-    padding-bottom: 3em;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+  }
+
+  .descriptionItem > span {
+    margin-top: 0;
+    font-size: 1em;
+    padding: 0;
+  }
+
+  .xScreenAppDetail svg {
+    width: 1.5em;
+    height: 1.5em;
   }
 
   .xScreenAppDetail > .appImageContainer {
@@ -644,8 +680,8 @@ article.currentXScroll .imgShadowContainer {
     margin: 0;
   }
 
-  .xScreenAppDetail > .appImageContainer > video {
-    height: 75%;
+  .xScreenAppDetail > .appImageContainer > video.app {
+    height: 90%;
     margin: 0;
   }
 
@@ -664,8 +700,33 @@ article.currentXScroll .imgShadowContainer {
     left: 0.5em;
     font-size: 2em;
   }
-}
 
+  .imgShadowContainer {
+    top: 10px;
+    left: 10%;
+  }
+
+  .descShadowContainer {
+    top: 10px;
+    left: -15%;
+    filter: blur(5px) brightness(0.75);
+  }
+
+  .descShadowContainer .descShadow {
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    background-color: var(--shadowDark);
+  }
+
+  .imgShadowContainer .siteShadow {
+    height: 80%;
+    width: 70%;
+    border-radius: 10px;
+    background-color: var(--shadowDark);
+    aspect-ratio: 1;
+  }
+}
 /*   #endregion   */
 
 /* About Screen */ /*   #region   */
@@ -681,12 +742,15 @@ article.currentXScroll .imgShadowContainer {
 }
 
 .aboutContainer > p {
+  font-family: "Josefin Sans", sans-serif;
+  display: flex;
+  align-items: center;
   position: absolute;
   top: 0;
   left: 0;
   width: 40%;
   height: 100%;
-  padding: 2em;
+  padding: 0 2em;
   background-color: var(--shadowDark);
   color: var(--white);
   z-index: 50;
@@ -714,13 +778,14 @@ article.currentXScroll .imgShadowContainer {
     top: unset;
     bottom: 0;
     width: 100%;
-    height: 40%;
-    padding: 0.5em 0;
+    height: 50%;
+    padding: 0;
     background-color: var(--shadowDark);
     color: var(--white);
     z-index: 50;
     font-size: 0.65em;
-    line-height: 1.1em;
+    line-height: 1.5em;
+    text-align: center;
   }
 
   #parallax0 > img {
@@ -852,12 +917,13 @@ article.currentXScroll .imgShadowContainer {
   display: flex;
   align-items: center;
   background-color: var(--black);
+  padding: 0 1em;
 }
 
 #contactScreen > div {
   display: flex;
   flex-direction: column;
-  margin-top: 10em;
+  /* margin-top: 10em; */
 }
 
 .contactForm {
@@ -871,15 +937,15 @@ article.currentXScroll .imgShadowContainer {
   align-items: flex-start;
   width: 100%;
   overflow: hidden;
-  padding-left: 1em;
 }
 
 .contactHeader > h2,
 .contactHeader > h3 {
-  font-size: 4em;
+  font-size: 7vw;
   color: var(--white);
   margin-bottom: 0.5em;
-  text-align: start;
+  text-align: right;
+  padding: 0 0.5em;
 }
 
 .contactHeader > h3 {
@@ -969,6 +1035,21 @@ article.currentXScroll .imgShadowContainer {
   outline: var(--gold);
 }
 
+.inputContainer > input:read-only,
+.inputContainer > textarea:read-only {
+  background-color: var(--black);
+  border: 7px solid var(--grey);
+  border-radius: 5px;
+  color: var(--grey);
+  font-size: 21px;
+}
+
+.inputContainer > input:read-only:focus,
+.inputContainer > textarea:read-only:focus {
+  border: 7px solid var(--grey);
+  outline: var(--gold);
+}
+
 .textField {
   width: 100%;
 }
@@ -986,7 +1067,7 @@ article.currentXScroll .imgShadowContainer {
 @media screen and (max-width: 750px) {
   #contactScreen {
     flex-direction: column;
-    padding-top: 1em;
+    padding: 1em 0;
   }
 
   #contactScreen > div {
@@ -1004,8 +1085,8 @@ article.currentXScroll .imgShadowContainer {
 
   .contactHeader > h2,
   .contactHeader > h3 {
-    font-size: 2em;
-    margin-bottom: 0.5em;
+    font-size: 10vw;
+    margin: 0.5em 0;
   }
 
   .contactHeader > h2 {
@@ -1021,20 +1102,24 @@ article.currentXScroll .imgShadowContainer {
     justify-content: space-around;
     align-items: center;
     width: 100%;
-    height: 4em;
+    height: 3em;
     border: none;
     margin-top: 0 !important;
   }
 
   .contactLinks svg {
-    width: 4em;
+    width: 3em;
     color: var(--white);
     margin-bottom: 0;
     cursor: pointer;
   }
 
-  .contactForm {
-    flex: unset;
+  #contactForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
     margin: 1em 0 !important;
   }
 
@@ -1085,6 +1170,14 @@ article.currentXScroll .imgShadowContainer {
 .menuButton:active {
   box-shadow: 0 -4px 4px 0 var(--shadowLight),
     inset 0 4px 4px 0 var(--shadowLight);
+}
+
+.menuButton:hover {
+  cursor: pointer;
+}
+
+.menuButton:disabled {
+  background-color: var(--grey);
 }
 
 #headerBar {
@@ -1357,6 +1450,4 @@ article.currentXScroll .imgShadowContainer {
   text-align: center;
 }
 
-#allowOrientationBTN {
-}
 /*   #endregion   */

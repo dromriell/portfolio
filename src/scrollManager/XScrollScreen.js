@@ -77,6 +77,8 @@ export default class XScrollScreen {
     const descriptionItemNode = document.createElement("div");
     const imageContainerNode = document.createElement("div");
     const linkRowNode = document.createElement("div");
+
+    const techString = document.createElement("span");
     const descriptionNode = document.createElement("p");
     const imageShadowContainer = document.createElement("div");
     const descriptionShadowNode = document.createElement("div");
@@ -98,12 +100,32 @@ export default class XScrollScreen {
     // Add description text
     descriptionNode.innerText = this.description;
 
+    if (this.data.apps.length > 0) {
+      const techStackArray = this.data.apps[0].tech;
+      let techStackString = "";
+      techStackArray.forEach((tech, idx) => {
+        let techString = "";
+        switch (idx) {
+          case 0:
+            techString = `|${tech} `;
+          case techStackArray.length - 1:
+            techString = `${tech}|`;
+          default:
+            techString = `|${tech}| `;
+        }
+        techStackString = `${techStackString}${techString}`;
+      });
+
+      techString.innerText = techStackString.replaceAll(",", " |");
+    }
+
     if (this.data.video_source) {
       this.videoNode = document.createElement("video");
       const sourceNode = document.createElement("source");
       const videoShadowNode = document.createElement("div");
 
-      this.videoNode.setAttribute("muted", true);
+      this.videoNode.muted = true;
+      this.videoNode.controls = true;
       this.videoNode.setAttribute("poster", this.data.img_1_source || "");
       sourceNode.setAttribute("src", this.data.video_source);
       this.videoNode.classList.add(this.data.web_link ? "site" : "app");
@@ -159,6 +181,7 @@ export default class XScrollScreen {
 
     // Append children
     descriptionItemNode.appendChild(descriptionNode);
+    descriptionItemNode.appendChild(techString);
     descriptionItemNode.appendChild(linkRowNode);
     descriptionShadowNode.appendChild(descShadowNode);
     descriptionContainerNode.appendChild(descriptionItemNode);
