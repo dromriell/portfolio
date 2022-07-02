@@ -223,7 +223,6 @@ export default class ScrollManager {
       } else if (index > element.index) {
         element.setXScrollOrderClasses(element.maxIndex);
         element.currentIndex = element.maxIndex;
-        this.currentSubScreenIndex = element.maxIndex;
       }
     });
   }

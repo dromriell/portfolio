@@ -339,19 +339,20 @@ section {
 
 .animatedHeader {
   color: rgba(0, 0, 0, 0);
-  height: 2em;
-  line-height: 2em;
+  height: 3em;
+  line-height: 3.5em;
 }
 
 .animatedHeader span {
   height: 100%;
   margin: auto 0;
+  font-family: inherit;
 }
 
 .animatedHeaderActive {
   color: var(--white);
-  text-shadow: var(--gold) 2px 5px;
-  font-size: 1.1em;
+  /* text-shadow: var(--grey) 2px 5px; */
+  font-size: 1em;
 }
 
 #projectsArray {
@@ -628,7 +629,7 @@ article.nextXScroll .imgShadowContainer {
   top: 50%;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 925px) {
   .xScreenAppDetail > .appImageContainer {
     height: 50%;
     width: 100%;
@@ -656,13 +657,12 @@ article.nextXScroll .imgShadowContainer {
 
   .descriptionItem > p {
     align-items: flex-start;
-    font-size: 1.25em;
     padding: 0.5em 0.5em 0.5em 0.5em;
   }
 
   .descriptionItem > span {
     margin-top: 0;
-    font-size: 1em;
+    font-size: 1.5em;
     padding: 0;
   }
 
@@ -727,6 +727,142 @@ article.nextXScroll .imgShadowContainer {
     aspect-ratio: 1;
   }
 }
+
+/* Mobile Portrait */
+@media screen and (max-height: 950px) and (max-width: 600px) {
+  .xScreenAppDetail .descriptionContainer {
+    justify-content: flex-end;
+  }
+
+  .descriptionItem > p {
+    font-size: 1.2em;
+  }
+  .descriptionItem > span {
+    margin-top: 0;
+    font-size: 0.85em;
+    padding: 0;
+  }
+  .xScreenAppDetail svg {
+    width: 1.5em;
+    height: 1.5em;
+  }
+
+  .animatedHeader {
+    line-height: 1.5em;
+    font-size: 1.25em;
+  }
+}
+
+/* Mobile Landscape */
+@media screen and (max-height: 515px) and (min-width: 350px) and (max-width: 1000px) {
+  .xScreenAppDetail > .appImageContainer {
+    height: 90%;
+  }
+
+  .xScreenAppDetail {
+    margin-top: 2em;
+    flex-direction: row;
+    padding: 2em;
+  }
+
+  .xScreenAppDetail .descriptionContainer {
+    flex: 2;
+    position: relative;
+    width: 100%;
+    height: 75%;
+  }
+
+  .xScreenAppDetail .descriptionItem {
+    height: 100%;
+  }
+
+  .descriptionItem > p {
+    line-height: 1.2em;
+    font-size: 1.15em;
+  }
+
+  .descriptionItem > span {
+    margin-top: 0;
+    font-size: 1.254em;
+  }
+
+  .xScreenAppDetail svg {
+    width: 1.5em;
+    height: 1.5em;
+  }
+
+  .xScreenAppDetail > .appImageContainer {
+    flex: 1;
+  }
+
+  .xScreenAppDetail > .appImageContainer > img {
+    height: 75%;
+    margin: 0;
+  }
+
+  .xScreenAppDetail > .appImageContainer > video.app {
+    height: 90%;
+    margin: 0;
+  }
+
+  #projectsArray h2 {
+    font-size: 18px;
+    line-height: 1em;
+    display: none;
+  }
+
+  .projectContainer {
+    padding: 0;
+  }
+
+  .xScreenHeader {
+    right: unset;
+    left: 0.5em;
+    font-size: 2em;
+  }
+
+  .imgShadowContainer {
+    top: 10px;
+    left: 10%;
+  }
+
+  .descShadowContainer {
+    top: 10px;
+    left: -15%;
+    filter: blur(5px) brightness(0.75);
+  }
+
+  .descShadowContainer .descShadow {
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    background-color: var(--shadowDark);
+  }
+
+  .imgShadowContainer .siteShadow {
+    height: 80%;
+    width: 70%;
+    border-radius: 10px;
+    background-color: var(--shadowDark);
+    aspect-ratio: 1;
+  }
+
+  .animatedHeader {
+    line-height: 1.5em;
+  }
+}
+
+/* Thin Screens */
+@media screen and (max-width: 300px) {
+  .descriptionItem > p {
+    line-height: 1em;
+  }
+
+  .animatedHeader {
+    font-size: 1em;
+  }
+}
+
 /*   #endregion   */
 
 /* About Screen */ /*   #region   */
@@ -772,7 +908,8 @@ article.nextXScroll .imgShadowContainer {
   background-color: #b2a3b5;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 750px),
+  (max-height: 400px) and (min-width: 600px) {
   .aboutContainer > p {
     position: absolute;
     top: unset;
@@ -923,19 +1060,28 @@ article.nextXScroll .imgShadowContainer {
 #contactScreen > div {
   display: flex;
   flex-direction: column;
-  /* margin-top: 10em; */
+  z-index: 25;
+}
+
+#contactScreen > div.contactScreenOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  background-color: var(--shadowDark);
 }
 
 .contactForm {
-  flex: 2;
+  flex: 1;
   justify-content: flex-start;
   align-items: center;
 }
 
 .contactHeader {
-  flex: 1;
+  flex: 2;
   align-items: flex-start;
-  width: 100%;
   overflow: hidden;
 }
 
@@ -944,8 +1090,12 @@ article.nextXScroll .imgShadowContainer {
   font-size: 7vw;
   color: var(--white);
   margin-bottom: 0.5em;
-  text-align: right;
   padding: 0 0.5em;
+}
+
+.contactHeader > h2 {
+  width: 50%;
+  text-align: left;
 }
 
 .contactHeader > h3 {
@@ -1023,6 +1173,7 @@ article.nextXScroll .imgShadowContainer {
   justify-content: flex-start;
   text-align: start;
   height: 5em;
+  resize: none;
 }
 
 .inputContainer > input:focus {
@@ -1062,6 +1213,104 @@ article.nextXScroll .imgShadowContainer {
   display: flex;
   justify-content: flex-end;
   width: 100%;
+}
+
+@media screen and (max-height: 400px) and (min-width: 600px) {
+  #contactScreen {
+    padding: 0 0.25em;
+  }
+
+  .contactForm {
+    flex: 2;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 2em;
+  }
+
+  .contactHeader > h2 {
+    text-align: left;
+  }
+
+  .contactLinks {
+    height: 90%;
+    justify-content: center;
+    border-right: 2px solid var(--gold);
+    padding-right: 1em;
+  }
+
+  .contactLinks svg {
+    width: 3em;
+    color: var(--white);
+    margin-bottom: 0.5em;
+    cursor: pointer;
+  }
+
+  #contactForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 90%;
+    height: 100%;
+  }
+
+  .formControl {
+    margin-bottom: 0.5em;
+  }
+
+  .formControl > label {
+    font-size: 24px;
+  }
+
+  .inputContainer {
+    display: flex;
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .inputContainer > input,
+  .inputContainer > textarea {
+    flex: 1;
+    padding: 0.15em;
+    background-color: var(--black);
+    border: 3px solid var(--white);
+    border-radius: 5px;
+    color: var(--white);
+    font-size: 18px;
+  }
+
+  .inputContainer > textarea {
+    justify-content: flex-start;
+    text-align: start;
+    height: 4em;
+    resize: none;
+  }
+
+  .inputContainer > input:focus {
+    border: 3px solid var(--gold);
+  }
+
+  .inputContainer > textarea:focus {
+    border: 3px solid var(--gold);
+    outline: var(--gold);
+  }
+
+  .inputContainer > input:read-only,
+  .inputContainer > textarea:read-only {
+    border: 3px solid var(--grey);
+    font-size: 18px;
+  }
+
+  .inputContainer > input:read-only:focus,
+  .inputContainer > textarea:read-only:focus {
+    border: 3px solid var(--grey);
+  }
+
+  .formButtonGroup {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 750px) {
@@ -1148,6 +1397,33 @@ article.nextXScroll .imgShadowContainer {
 
   .formControl > label {
     font-size: 1.5em;
+  }
+}
+
+@media screen and (max-width: 1000px) and (min-width: 751px) and (min-height: 751px) {
+  #contactScreen {
+    padding: 0;
+  }
+
+  .contactHeader {
+    flex: 1;
+  }
+
+  .contactForm {
+    flex: 2;
+  }
+
+  .contactLinks {
+    justify-content: center;
+    border-right: 2px solid var(--gold);
+    padding-right: 1em;
+  }
+
+  .contactLinks svg {
+    width: 3em;
+    color: var(--white);
+    margin: 1em;
+    cursor: pointer;
   }
 }
 
@@ -1259,7 +1535,8 @@ article.nextXScroll .imgShadowContainer {
   border-bottom: 1px solid var(--grey);
 }
 
-@media screen and (max-width: 750px) {
+/* Mobile Landscape */
+@media screen and (max-width: 750px), (max-height: 450px) {
   #headerBar > h1 {
     display: none;
   }
@@ -1451,3 +1728,50 @@ article.nextXScroll .imgShadowContainer {
 }
 
 /*   #endregion   */
+
+.loadingAnim {
+  display: inline-block;
+  position: relative;
+  width: 90px;
+  height: 90px;
+}
+.loadingAnim div {
+  display: inline-block;
+  position: absolute;
+  left: 8px;
+  width: 30px;
+  height: 30px;
+  background: var(--white);
+  border-radius: 5px;
+  animation: loadingAnim 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.loadingAnim div:nth-child(1) {
+  left: 0px;
+  animation-delay: -0.45s;
+}
+.loadingAnim div:nth-child(2) {
+  left: 40px;
+  animation-delay: -0.3s;
+}
+.loadingAnim div:nth-child(3) {
+  left: 80px;
+  animation-delay: -0.15s;
+}
+
+.loadingAnim div:nth-child(4) {
+  left: 80px;
+  animation-delay: 0;
+}
+
+@keyframes loadingAnim {
+  0% {
+    /* top: 0px; */
+    transform: rotate(-90deg);
+  }
+  50%,
+  100% {
+    /* top: 32px; */
+    background: var(--gold);
+    transform: rotate(90deg);
+  }
+}

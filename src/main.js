@@ -41,7 +41,7 @@ const homeExperience = new Experience(
 );
 const designCanvas = document.createElement("canvas");
 const designExp = new Experience(
-  designCanvas,
+  document.querySelector("#bathroomCanvas"),
   bathroomSources,
   BathroomWorld,
   BathroomCamera
@@ -97,8 +97,6 @@ const renderScrollSections = async () => {
       parallaxItem.img.src = staticUrls.developePic;
       const developeInfo = new DevelopeInfo(data);
       sectionElement.nodes.displayDiv.appendChild(developeInfo.element);
-    } else if (data.name === "Design") {
-      sectionElement.nodes.displayDiv.appendChild(designCanvas);
     }
 
     // Set callbacks for scroll events
