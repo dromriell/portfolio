@@ -101,7 +101,7 @@ const renderScrollSections = async () => {
   screenData.forEach((data, index) => {
     // Init related components
     tabIndex = index + 2;
-    const sectionElement = new XScrollScreen(index, data);
+    const sectionElement = new XScrollScreen(index, data, tabIndex);
     sectionElement.setAttribute(
       "data-btn",
       `${scrollXSection.index}.${sectionElement.index}`
