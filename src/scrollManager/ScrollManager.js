@@ -260,21 +260,31 @@ export default class ScrollManager {
     }
     e.preventDefault();
 
-    if (e.type === "touchend" && this.touchStart) {
-      const touchEnd = e.changedTouches[0].screenY;
-      const deltaY = this.touchStart - touchEnd;
-      if (deltaY < -50 || deltaY > 50) {
+    if (e.type === "touchend" && this.touchStartY) {
+      const touchEndY = e.changedTouches[0].screenY;
+      const touchEndX = e.changedTouches[0].screenX;
+      const deltaY = this.touchStartY - touchEndY;
+      const deltaX = this.touchStartX - touchEndX;
+      const isOverDeltaYThres = deltaY < -50 || deltaY > 50;
+      const isOverDeltaXThres = deltaX < -50 || deltaX > 50;
+
+      if (this.isXScrollScreenFocused && isOverDeltaXThres) {
+        this.executeScroll(deltaX);
+      } else if (isOverDeltaYThres) {
         this.executeScroll(deltaY);
-        this.touchStart = null;
       }
+      this.touchStartY = null;
+      this.touchStartX = null;
     }
   }
 
   handleTouchMove(e) {
     e.preventDefault();
-    const touches = e.touches[0].screenY;
-    if (!this.touchStart) {
-      this.touchStart = touches;
+    const touchesY = e.touches[0].screenY;
+    const touchesX = e.touches[0].screenX;
+    if (!this.touchStartY) {
+      this.touchStartY = touchesY;
+      this.touchStartX = touchesX;
       return;
     }
   }
