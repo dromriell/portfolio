@@ -2,6 +2,7 @@ import smoothscroll from "smoothscroll-polyfill";
 
 import ScrollManager from "./scrollManager/ScrollManager";
 import ResizeManager from "./utils/ResizeManager";
+import TabManager from "./utils/TabManager";
 import Experience from "./threeExp/Experience";
 import TilesWorld from "./threeExp/landingScreen/TilesWorld";
 import TilesCamera from "./threeExp/landingScreen/TilesCamera";
@@ -15,7 +16,6 @@ import XScrollScreen from "./scrollManager/XScrollScreen";
 import ParallaxItem from "./scrollManager/ParallaxItem";
 import ParallaxManager from "./scrollManager/ParallaxManager";
 import { AboutInfo, DevelopeInfo } from "./components/SectionInfo";
-import TextCarousel from "./components/TextCarousel";
 
 import { fetchScreenData } from "./utils/apiActions";
 import { staticUrls } from "./utils/urls";
@@ -51,6 +51,7 @@ const designExp = new Experience(
  * Navigation
  */
 const scrollManager = new ScrollManager();
+const tabManager = new TabManager(scrollManager);
 const headerBar = new HeaderBar(scrollManager, false);
 const parallaxManager = new ParallaxManager(
   scrollManager.getSectionByID("mainScreen").element
@@ -59,6 +60,21 @@ const parallaxManager = new ParallaxManager(
 scrollManager.onScrollEnd = (index) => {
   headerBar.updateMarker();
   headerBar.highlightCurrentScreen(index);
+};
+
+headerBar.onMenuBtnPress = (index) => {
+  tabManager.setDocumentTabIndex(index);
+};
+
+const setContactScreenTabIndex = (tabIndex) => {
+  const contactScreen = document.querySelector("#contactScreen");
+  const inputElements = contactScreen.querySelectorAll(
+    "input, textarea, button"
+  );
+  contactScreen.setAttribute("tabindex", tabIndex);
+  inputElements.forEach((element) =>
+    element.setAttribute("tabindex", tabIndex)
+  );
 };
 
 /**
@@ -71,6 +87,10 @@ const renderScrollSections = async () => {
   // Auto formats based on the data received.
   const scrollXSection = scrollManager.getSectionByID("mainScreen");
   let screenData;
+
+  // Start index at 2 to account for home and menu index
+  let tabIndex = 2;
+
   try {
     screenData = await fetchScreenData();
   } catch (error) {
@@ -80,15 +100,19 @@ const renderScrollSections = async () => {
   document.dispatchEvent(apiLoadEvent);
   screenData.forEach((data, index) => {
     // Init related components
-    const sectionElement = new XScrollScreen(index, data);
+    tabIndex = index + 2;
+    const sectionElement = new XScrollScreen(index, data, tabIndex);
     sectionElement.setAttribute(
       "data-btn",
       `${scrollXSection.index}.${sectionElement.index}`
     );
+
     const sectionHeader = new AnimatedHeader(sectionElement.name, {
       allCaps: true,
     });
     const parallaxItem = new ParallaxItem(data, index);
+
+    sectionElement.setAttribute("tabindex", tabIndex);
 
     if (data.name === "About") {
       const aboutInfo = new AboutInfo(data);
@@ -113,10 +137,12 @@ const renderScrollSections = async () => {
     scrollXSection.children.push(sectionElement);
   });
 
+  setContactScreenTabIndex(tabIndex + 1);
   parallaxManager.setBackground();
   scrollXSection.updateChildren();
   scrollXSection.onScroll = (index) => parallaxManager.setIndex(index);
   headerBar.setHeaderBarButtons(); // Update header bar to add new section buttons
+  tabManager.setCurrentTabNodeList();
 };
 renderScrollSections();
 
@@ -235,6 +261,24 @@ window.addEventListener("resize", () => {
     resizeManager.setViewHeight();
   }
   scrollManager.handleDirectScroll(scrollManager.getFullCurrentScreenIndex());
+});
+
+window.addEventListener("keydown", (e) => {
+  if (e.keyCode === 13) {
+    const activeElement = document.activeElement;
+    const elementIndex = activeElement.getAttribute("data-scroll");
+    if (elementIndex) {
+      e.preventDefault();
+      scrollManager.handleDirectScroll(elementIndex);
+      tabManager.setDocumentTabIndex(elementIndex);
+    }
+  } else if (e.keyCode === 9) {
+    if (e.shiftKey) {
+      tabManager.handleShiftTabEvent(e);
+    } else {
+      tabManager.handleTabEvent(e);
+    }
+  }
 });
 
 document.addEventListener("apiLoaded", handleAPILoaded);

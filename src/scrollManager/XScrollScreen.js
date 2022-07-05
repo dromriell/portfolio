@@ -7,8 +7,9 @@ import svgIcons from "../utils/svgIcons";
  * @param {object} data The data data to be displayed.
  */
 export default class XScrollScreen {
-  constructor(index, data) {
+  constructor(index, data, tabIndex = -1) {
     this.index = index;
+    this.tabIndex = tabIndex;
     this.isAppScreen = data.is_app_screen;
     this.data = data;
     this.name = data.name;
@@ -127,6 +128,7 @@ export default class XScrollScreen {
       this.videoNode.muted = true;
       this.videoNode.controls = true;
       this.videoNode.setAttribute("poster", this.data.img_1_source || "");
+      this.videoNode.setAttribute("tabindex", this.tabIndex);
       sourceNode.setAttribute("src", this.data.video_source);
       this.videoNode.classList.add(this.data.web_link ? "site" : "app");
       videoShadowNode.classList.add(
@@ -168,6 +170,7 @@ export default class XScrollScreen {
     if (this.data.web_link) {
       urlAnchorNode.innerHTML = svgIcons.link;
       urlAnchorNode.setAttribute("href", this.data.web_link);
+      urlAnchorNode.setAttribute("tabindex", this.tabIndex);
       linkRowNode.appendChild(urlAnchorNode);
     }
     if (this.data.git_link) {
@@ -176,6 +179,7 @@ export default class XScrollScreen {
       gitHubAnchorNode.addEventListener("touchend", (e) =>
         window.open(this.data.git_link, "_blank")
       );
+      gitHubAnchorNode.setAttribute("tabindex", this.tabIndex);
       linkRowNode.appendChild(gitHubAnchorNode);
     }
 
