@@ -9,7 +9,7 @@ import ScrollSection from "./ScrollSection";
  */
 export default class ScrollManager {
   constructor(
-    scrollDelay = 700,
+    scrollDelay = 800,
     scrollClassY = "scrollSectionY",
     scrollClassX = "scrollSectionX"
   ) {
