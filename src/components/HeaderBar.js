@@ -6,8 +6,13 @@ import { staticUrls } from "../utils/urls";
  * @param {boolean} shouldSetButtons Should section buttons be set now or later? Default is true.
  */
 export default class HeaderBar {
-  constructor(scrollManager, shouldSetButtons = true) {
+  constructor(
+    scrollManager,
+    shouldSetButtons = true,
+    onMenuBtnPress = () => {}
+  ) {
     this.scrollManager = scrollManager;
+    this.onMenuBtnPress = onMenuBtnPress;
 
     this.container = document.createElement("nav");
     this.marker = document.createElement("h1");
@@ -78,8 +83,8 @@ export default class HeaderBar {
     this.container.appendChild(this.mobileMenu);
     this.container.appendChild(this.mobileMenuToggle);
 
-    docBody.appendChild(this.container);
-    docBody.appendChild(this.menuOverlay);
+    docBody.prepend(this.container);
+    docBody.prepend(this.menuOverlay);
   }
 
   /**
@@ -103,11 +108,13 @@ export default class HeaderBar {
       sectionButton.appendChild(sectionTitle);
 
       const mobileButton = sectionButton.cloneNode(true);
+      sectionButton.setAttribute("tabindex", 1);
 
       ["touchstart", "mousedown"].forEach((event) => {
         sectionButton.addEventListener(event, (e) => {
           this.toggleScrollOverlay();
           this.scrollManager.handleDirectScroll(sectionIndex);
+          this.onMenuBtnPress(sectionIndex);
         });
         mobileButton.addEventListener(event, (e) => {
           e.preventDefault();
