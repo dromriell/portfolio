@@ -33,6 +33,7 @@ canvas {
   --green: #7cae7a;
 
   --buttonHoverTransition: transform 500ms;
+  --xScreenSpeed: 800ms;
 }
 
 body h1,
@@ -119,7 +120,8 @@ section {
   width: 100vw;
   height: 100vh;
   transform: translateX(-100vw);
-  transition: transform 900ms ease-in-out, filter 900ms ease-in;
+  transition: transform var(--xScreenSpeed) ease-in-out,
+    filter var(--xScreenSpeed) ease-in;
 }
 
 .pastXScroll {
@@ -176,7 +178,7 @@ section {
   overflow: hidden;
   background-size: cover;
   background-position: center;
-  transition: transform 900ms ease-in-out;
+  transition: transform var(--xScreenSpeed) ease-in-out;
   z-index: 0;
 }
 
@@ -193,7 +195,7 @@ section {
 .parralaxItem > img {
   max-width: 100vw;
   max-height: 100vh;
-  transition: transform 900ms ease-in-out;
+  transition: transform var(--xScreenSpeed) ease-in-out;
 }
 
 .parralaxItem > img.cover {
@@ -275,7 +277,11 @@ section {
   bottom: 0;
   width: 100vw;
   height: 2em;
-  font-size: 34px;
+  font-size: 52px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.25em;
+  text-shadow: -1px -1px 0 var(--white);
 }
 
 .scrollTitleAnimation {
@@ -313,6 +319,14 @@ section {
   #homeScreen h3 {
     font-size: 18px;
     padding: 0;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #homeScreen p {
+    font-size: 32px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
   }
 }
 
@@ -375,7 +389,8 @@ section {
   right: -5%;
   height: 100%;
   width: 60%;
-  transition: transform 900ms ease-in-out, filter 900ms ease-in;
+  transition: transform var(--xScreenSpeed) ease-in-out,
+    filter var(--xScreenSpeed) ease-in;
 }
 
 .xScreenBg > img {
@@ -582,7 +597,7 @@ article.nextXScroll .imgShadowContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: transform 900ms ease-in-out;
+  transition: transform var(--xScreenSpeed) ease-in-out;
   z-index: 49;
 }
 
