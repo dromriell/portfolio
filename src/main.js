@@ -69,7 +69,7 @@ headerBar.onMenuBtnPress = (index) => {
 const setContactScreenTabIndex = (tabIndex) => {
   const contactScreen = document.querySelector("#contactScreen");
   const inputElements = contactScreen.querySelectorAll(
-    "input, textarea, button"
+    "input, textarea, button, a"
   );
   contactScreen.setAttribute("tabindex", tabIndex);
   inputElements.forEach((element) =>
@@ -253,7 +253,7 @@ const handleAPILoaded = (e) => {
  * Loading Handling
  */
 const removeLoadingOverlay = () => {
-  document.querySelector(".loadingOverlay").classList.remove("show");
+  document.querySelector(".loadingOverlay").remove();
 };
 
 window.addEventListener("resize", () => {
