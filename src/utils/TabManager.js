@@ -40,7 +40,7 @@ export default class TabManager {
     }
     this.nextElement = this.currentTabNodeList[this.activeElementTabIndex];
     const parentElementIndex = this.nextElement
-      ?.closest("article")
+      ?.closest("section, article")
       ?.getAttribute("data-btn");
     const nextElementNodeName = this.nextElement
       ? this.nextElement.nodeName
