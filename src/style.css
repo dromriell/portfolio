@@ -1137,11 +1137,18 @@ article.nextXScroll .imgShadowContainer {
   border-right: 2px solid var(--gold);
 }
 
-.contactLinks svg {
+.contactLinks a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 7em;
   color: var(--white);
   margin-bottom: 3em;
   cursor: pointer;
+}
+
+.contactLinks a svg {
+  width: 60%;
 }
 
 #contactForm {
@@ -1253,7 +1260,7 @@ article.nextXScroll .imgShadowContainer {
     padding-right: 1em;
   }
 
-  .contactLinks svg {
+  .contactLinks a {
     width: 3em;
     color: var(--white);
     margin-bottom: 0.5em;
@@ -1371,11 +1378,15 @@ article.nextXScroll .imgShadowContainer {
     margin-top: 0 !important;
   }
 
-  .contactLinks svg {
+  .contactLinks a {
     width: 3em;
     color: var(--white);
     margin-bottom: 0;
     cursor: pointer;
+  }
+
+  .contactLinks a svg {
+    width: 100%;
   }
 
   #contactForm {
@@ -1434,11 +1445,15 @@ article.nextXScroll .imgShadowContainer {
     padding-right: 1em;
   }
 
-  .contactLinks svg {
+  .contactLinks a {
     width: 3em;
     color: var(--white);
     margin: 1em;
     cursor: pointer;
+  }
+
+  .contactLinks a svg {
+    width: 100%;
   }
 }
 
