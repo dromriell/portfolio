@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="shortcut icon" type="image/png" href="/portfolioFavicon.png" />
+    <meta name="theme-color" content="#1e1e1e" />
+    <meta name="author" content="Devon Romriell" />
+    <meta name="description" content="Web/app developer in Lexington, KY." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -48,7 +51,11 @@
           <h2>LET'S TALK&nbsp</h2>
         </div>
         <div class="contactLinks">
-          <a href="https://github.com/dromriell" target="_blank">
+          <a
+            href="https://github.com/dromriell"
+            target="_blank"
+            aria-label="Github"
+          >
             <svg
               aria-hidden="true"
               focusable="false"
@@ -65,7 +72,11 @@
               ></path>
             </svg>
           </a>
-          <a href="https://www.linkedin.com/in/devonromriell/" target="_blank">
+          <a
+            href="https://www.linkedin.com/in/devonromriell/"
+            target="_blank"
+            aria-label="LinkedIn"
+          >
             <svg
               aria-hidden="true"
               focusable="false"
@@ -99,7 +110,7 @@
               />
             </svg>
           </a> -->
-          <a href="mailto:devonromriell@gmail.com">
+          <a href="mailto:devonromriell@gmail.com" aria-label="Email">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -115,27 +126,35 @@
         <div class="contactForm">
           <form id="contactForm">
             <div class="formControl textField">
-              <label for="name">NAME:</label>
-              <div class="inputContainer">
-                <input type="text" name="name" maxlength="75" required />
-              </div>
+              <label for="name"
+                >NAME:
+                <div class="inputContainer">
+                  <input type="text" name="name" maxlength="75" required />
+                </div>
+              </label>
             </div>
             <div class="formControl textField">
-              <label for="name">EMAIL:</label>
-              <div class="inputContainer">
-                <input type="text" name="email" maxlength="75" required />
-              </div>
+              <label for="name"
+                >EMAIL:
+
+                <div class="inputContainer">
+                  <input type="text" name="email" maxlength="75" required />
+                </div>
+              </label>
             </div>
             <div class="formControl textArea">
-              <label for="name">MESSAGE:</label>
-              <div class="inputContainer">
-                <textarea
-                  cols="4"
-                  name="note"
-                  maxlength="350"
-                  required
-                ></textarea>
-              </div>
+              <label for="name"
+                >MESSAGE:
+
+                <div class="inputContainer">
+                  <textarea
+                    cols="4"
+                    name="note"
+                    maxlength="350"
+                    required
+                  ></textarea>
+                </div>
+              </label>
             </div>
             <div class="formButtonGroup">
               <button type="submit" class="button menuButton">
