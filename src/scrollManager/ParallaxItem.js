@@ -7,6 +7,7 @@ export default class ParallaxItem {
     this.isAppScreen = data.is_app_screen;
 
     this.img.src = this.imgSrc;
+    this.img.alt = `${data.name} screen parallax backround`;
 
     if (this.backgroundColor) {
       this.element.style.background = this.backgroundColor;

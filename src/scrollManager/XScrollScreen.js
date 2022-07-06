@@ -144,6 +144,7 @@ export default class XScrollScreen {
       const imageNode1 = document.createElement("img");
       const imageShadowNode1 = document.createElement("div");
       imageNode1.setAttribute("src", this.data.img_1_source);
+      imageNode1.setAttribute("alt", `${this.data.name} first image`);
       imageNode1.classList.add(this.data.web_link ? "site" : "app");
       imageShadowNode1.classList.add(
         this.data.web_link ? "siteShadow" : "appShadow"
@@ -158,6 +159,7 @@ export default class XScrollScreen {
       const imageShadowNode1 = document.createElement("div");
 
       imageNode2.setAttribute("src", this.data.img_2_source);
+      imageNode2.setAttribute("alt", `${this.data.name} second image`);
       imageNode2.classList.add(this.data.web_link ? "site" : "app");
       imageShadowNode1.classList.add(
         this.data.web_link ? "siteShadow" : "appShadow"
@@ -171,6 +173,7 @@ export default class XScrollScreen {
       urlAnchorNode.innerHTML = svgIcons.link;
       urlAnchorNode.setAttribute("href", this.data.web_link);
       urlAnchorNode.setAttribute("tabindex", this.tabIndex);
+      urlAnchorNode.setAttribute("aria-label", this.data.name);
       linkRowNode.appendChild(urlAnchorNode);
     }
     if (this.data.git_link) {
@@ -180,6 +183,7 @@ export default class XScrollScreen {
         window.open(this.data.git_link, "_blank")
       );
       gitHubAnchorNode.setAttribute("tabindex", this.tabIndex);
+      gitHubAnchorNode.setAttribute("aria-label", `${this.data.name} Github`);
       linkRowNode.appendChild(gitHubAnchorNode);
     }
 
